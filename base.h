@@ -1,5 +1,6 @@
 #define INC_BASE
 #include <unistd.h>
+#include <sys/ioctl.h>
 #include <stddef.h>
 #include <termios.h>
 #include <stdlib.h>
@@ -9,6 +10,7 @@
 #include "macros.h"
 #endif
 #include "libmds/src/dynstr/headers/strop.h"
+#include "libmds/src/vector/headers/vector.h"
 
 /* Defining some useful structs */
 struct curspos {
@@ -16,9 +18,16 @@ struct curspos {
 	short int y;
 };
 
+struct object {
+	char rep;
+	short int posx;
+	short int posy;
+};
+
 struct libascii_stat {
 	struct curspos cpos;
 	struct termios init_termios;
+	struct winsize ws;
 	string *abuf;
 };
 

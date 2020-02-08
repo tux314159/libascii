@@ -1,4 +1,4 @@
-CFLAGS = -o $@
+CFLAGS = -g -o $@
 CC = gcc $(CFLAGS)
 OCC = $(CC) -c
 AR = ar rcs $@
