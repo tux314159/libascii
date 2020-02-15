@@ -2,15 +2,16 @@
 
 void libascii_init(void)
 {
+	_gls = malloc(sizeof(struct libascii_stat));
+	_gls->abuf = str_create();
+	_gls->echo = 0;
 	/* Use alternate buffer */
 	write(STDOUT, "\x1b[?1049h", 8);
 	/* Get window size */
-	_gls = malloc(sizeof(struct libascii_stat));
-	_gls->abuf = str_create();
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &(_gls->ws));
 	/* Rows, columns are 1-indexed */
-	_gls->cpos.x = 1;
-	_gls->cpos.y = 1;
+	_gls->cpos.r = 1;
+	_gls->cpos.c = 1;
 	/* Turn on 'raw mode' */
 	struct termios orig, raw;
 	tcgetattr(STDIN_FILENO, &orig);

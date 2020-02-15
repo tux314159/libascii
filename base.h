@@ -14,20 +14,21 @@
 
 /* Defining some useful structs */
 struct curspos {
-	short int x;
-	short int y;
+	short int r;
+	short int c;
 };
 
 struct object {
 	char rep;
-	short int posx;
-	short int posy;
+	short int posr;
+	short int posc;
 };
 
 struct libascii_stat {
 	struct curspos cpos;
 	struct termios init_termios;
 	struct winsize ws;
+	int echo; /* When receiving input, should I echo it on ouutput? */
 	string *abuf;
 };
 
