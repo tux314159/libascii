@@ -15,10 +15,12 @@ int main(void)
 	clearline(getwinrows());
 	curs_mov(1, 1);
 	buf_putstr("You pressed '");
-	buf_putstr(char2str(rec));
+	buf_putstr(rec == '\r' ? "enter" : char2str(rec));
 	buf_putstr("' (Press any key to continue)");
 	buf_write();
 	scankey();
+
+
 	clearscreen();
 
 
