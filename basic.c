@@ -48,6 +48,7 @@ void scanstr(string **store, char delim)
 			if (t[0] == '\x1b') {
 				read(STDIN, &t, 2);
 				if (t[1] == 'A' || t[1] == 'B' || t[1] == 'C' || t[1] == 'D') {
+					scanlen -= 1;
 					t[0] = '\0';
 					t[1] = '\0';
 					t[2] = '\0';
