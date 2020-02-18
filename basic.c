@@ -44,7 +44,7 @@ void scanstr(string **store, char delim)
 				}
 			}
 
-			/* Ignore special keys */
+			/* Ignore arrow keys */
 			if (t[0] == '\x1b') {
 				read(STDIN, &t, 2);
 				if (t[1] == 'A' || t[1] == 'B' || t[1] == 'C' || t[1] == 'D') {
