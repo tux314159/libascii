@@ -9,8 +9,8 @@
 #ifndef INC_MACROS
 #include "macros.h"
 #endif
-#include "libmds/src/dynstr/headers/strop.h"
-#include "libmds/src/vector/headers/vector.h"
+#include "libmds/src/dynstr/strop.h"
+#include "libmds/src/vector/vector.h"
 
 /* Defining some useful structs */
 struct curspos {
