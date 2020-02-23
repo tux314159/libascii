@@ -5,6 +5,9 @@ int main(void)
 {
 	startraw();
 	setecho();
+	
+	obj_create('@', 1, 1);
+
 	/* Page 1 */
 	curs_mov(getwinrows() / 2, getwincols() / 2 - 5);
 	buf_putstr("libascii v0");
@@ -41,6 +44,7 @@ int main(void)
 	scankey();
 
 	/* Exit code */
+	obj_del(1); /* Must be done BEFORE call to endraw()! */
 	endraw();
 	str_del(t);
 	return 0;

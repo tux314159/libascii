@@ -4,7 +4,9 @@ void libascii_init(void)
 {
 	_gls = malloc(sizeof(struct libascii_stat));
 	_gls->abuf = str_create();
+	_gls->objlist = vector_create(sizeof(struct object));
 	_gls->echo = 0;
+	_gls->idmax = -1;
 	/* Use alternate buffer */
 	write(STDOUT, "\x1b[?1049h", 8);
 	/* Get window size */
@@ -33,6 +35,7 @@ void libascii_exit(void)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &(_gls->init_termios));
 	/* Free memory */
 	str_del(_gls->abuf);
+	vector_del(_gls->objlist);
 	free(_gls);
 	return;
 }
