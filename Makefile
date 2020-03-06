@@ -5,7 +5,10 @@ AR = ar rcs $@
 
 .PHONY : all
 
-all : git test dynamic static
+#all : git test dynamic static
+#	@echo -e "\033[0;31mRun this:  export LD_LIBRARY_PATH=\$${LD_LIBRARY_PATH}:$$(pwd)\033[0m"
+
+all : git test_static dynamic static
 	@echo -e "\033[0;31mRun this:  export LD_LIBRARY_PATH=\$${LD_LIBRARY_PATH}:$$(pwd)\033[0m"
 
 dynamic : libascii.so
@@ -14,6 +17,9 @@ static : libascii.a
 
 test : test.c libascii.so libmds/src/libmds.so
 	$(CC) test.c -L. -lascii -Llibmds/src/ -lmds
+
+test_static: test.c libascii.a libmds/src/libmds.a
+	$(CC) $^
 
 libascii.a : init.o basic.o draw/*.o
 	$(AR) $^
@@ -29,11 +35,17 @@ draw/button.o : draw/button.c
 libmds/src/libmds.so : FORCE
 	$(MAKE) -C libmds/src/
 
+libmds/src/libmds.a : FORCE
+	$(MAKE) -C libmds/src/
+
 git : FORCE
-	git submodule update
+	git submodule update --remote
 
 clean : FORCE
 	rm -rf *.o
-	$(MAKE) -C libmds/src/ clean
+	$(MAKE) -C libmds/src/ cleanproper
+
+cleanproper : clean
+	rm -f test test_static *.a *.so
 
 FORCE :
