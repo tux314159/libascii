@@ -15,23 +15,16 @@ static : libascii.a
 test : test.c libascii.so libmds/src/libmds.so
 	$(CC) test.c -L. -lascii -Llibmds/src/ -lmds
 
-libascii.a : init.o basic.o draw.o objsys.o
+libascii.a : init.o basic.o draw/*.o
 	$(AR) $^
 
-libascii.so : init.o basic.o draw.o objsys.o
+libascii.so : init.o basic.o draw/*.o
 	$(CC) -shared -fPIC $^
 
 init.o : init.c
-	$(OCC) $<
-
 basic.o : basic.c
-	$(OCC) $<
-
-draw.o : draw/buf_putstr.c
-	$(OCC) $<
-
-objsys.o : objsys/objsys.c
-	$(OCC) $<
+draw/buf_putstr.o : draw/buf_putstr.c
+draw/button.o : draw/button.c
 
 libmds/src/libmds.so : FORCE
 	$(MAKE) -C libmds/src/

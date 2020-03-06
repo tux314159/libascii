@@ -13,7 +13,7 @@
 #include "libmds/src/vector/vector.h"
 
 /* Defining some useful structs */
-struct curspos {
+struct spos { /* Screen position */
 	short int r;
 	short int c;
 };
@@ -26,7 +26,7 @@ struct object {
 };
 
 struct libascii_stat {
-	struct curspos cpos;
+	struct spos cpos;
 	struct termios init_termios;
 	struct winsize ws;
 	int echo; /* When receiving input, should I echo it on output? */
