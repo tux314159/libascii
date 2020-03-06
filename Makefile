@@ -30,7 +30,7 @@ libmds/src/libmds.so : FORCE
 	$(MAKE) -C libmds/src/
 
 git : FORCE
-	git submodule add https://github.com/erratic-c-programmer/libmds.git
+	git submodule update
 
 clean : FORCE
 	rm -rf *.o
