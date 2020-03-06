@@ -3,9 +3,9 @@
 
 int main(void)
 {
-	startraw();
+		startraw();
 	setecho();
-	
+
 	/* Page 1 */
 	curs_mov(getwinrows() / 2, getwincols() / 2 - 5);
 	buf_putstr("libascii v0");
@@ -26,7 +26,8 @@ int main(void)
 
 
 	/* Page 2 */
-	make_button((struct spos){4, 5}, "Hi!", 10, 1);
+	char *buttext[6] = {"Hello!"};
+	make_button((struct spos){4, 5}, buttext, 1, 10, 1);
 	curs_mov(getwinrows() / 2, getwincols() / 2 - 5);
 	buf_putstr("libascii v0");
 	curs_mov(getwinrows(), 0);
