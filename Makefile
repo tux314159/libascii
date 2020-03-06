@@ -5,7 +5,7 @@ AR = ar rcs $@
 
 .PHONY : all
 
-all : test dynamic static
+all : git test dynamic static
 	@echo -e "\033[0;31mRun this:  export LD_LIBRARY_PATH=\$${LD_LIBRARY_PATH}:$$(pwd)\033[0m"
 
 dynamic : libascii.so
@@ -28,6 +28,9 @@ draw/button.o : draw/button.c
 
 libmds/src/libmds.so : FORCE
 	$(MAKE) -C libmds/src/
+
+git : FORCE
+	git submodule add https://github.com/erratic-c-programmer/libmds.git
 
 clean : FORCE
 	rm -rf *.o
