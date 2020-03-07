@@ -3,3 +3,5 @@
 *.a
 test
 test_static
+.cquery
+.vscode
