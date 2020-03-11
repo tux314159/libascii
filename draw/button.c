@@ -16,7 +16,7 @@ void make_button(struct spos butpos, char **sarr /* Array of C strings */,
 		buf_putstr("|");
 	}
 
-	for (size_t i = 0; i < arrlen || i < h; i++) {
+	for (int i = 0; i < arrlen && i < h; i++) {
 		curs_mov(butpos.r + i + 1, butpos.c + 1);
 		buf_putstr(sarr[i]);
 	}
