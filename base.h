@@ -10,12 +10,18 @@
 #include "macros.h"
 #endif
 #include "libmds/src/dynstr/strop.h"
-#include "libmds/src/vector/vector.h"
+
+#define MAX_BUTTONS 50
 
 /* Defining some useful structs */
 struct spos { /* Screen position */
 	short int r;
 	short int c;
+};
+
+struct button {
+	short int id;
+	void (*action)(void);
 };
 
 struct libascii_stat {
@@ -25,6 +31,8 @@ struct libascii_stat {
 	int echo; /* When receiving input, should I echo it on output? */
 	string *abuf;
 	int idmax; /* Most recent object id */
+	struct button *buttons; /* Not using libmds vectors here
+	cos I don't know how */
 };
 
 /* Declaring globlal variables */
