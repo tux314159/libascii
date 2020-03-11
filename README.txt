@@ -1,2 +1,1 @@
-You need libmds for this!
-https://github.com/erratic-c-programmer/libmds
+A library to create a terminal user interface
