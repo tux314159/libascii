@@ -18,20 +18,12 @@ struct spos { /* Screen position */
 	short int c;
 };
 
-struct object {
-	char rep;
-	short int posr;
-	short int posc;
-	int id;
-};
-
 struct libascii_stat {
 	struct spos cpos;
 	struct termios init_termios;
 	struct winsize ws;
 	int echo; /* When receiving input, should I echo it on output? */
 	string *abuf;
-	struct vector *objlist;
 	int idmax; /* Most recent object id */
 };
 
