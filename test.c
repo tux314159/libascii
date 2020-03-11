@@ -27,7 +27,7 @@ int main(void)
 
 	/* Page 2 */
 	char *buttext[6] = {"Hello!", "Bye..."};
-	make_button((struct spos){4, 5}, buttext, 2, 10, 1);
+	make_button((struct spos){4, 5}, buttext, 2, 10, 3);
 	curs_mov(getwinrows() / 2, getwincols() / 2 - 5);
 	buf_putstr("libascii v0");
 	curs_mov(getwinrows(), 0);
