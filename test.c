@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "api.h"
 
-short int c1, c2, c3;
+short int c1, c2, c3, o1;
 char *speeches[3] = {"Hi!", "Bye!", "No."};
 
 void say_hi(void)
@@ -16,6 +16,7 @@ int main(void)
 	setecho();
 
 	/* Page 1 */
+	object_create('@', MKSPOS(5, 1));
 	curs_mov(getwinrows() / 2, getwincols() / 2 - 5);
 	buf_putstr("libascii v0");
 	curs_mov(getwinrows(), 0);
