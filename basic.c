@@ -10,9 +10,28 @@ void curs_mov(short int newr, short int newc)
 	return;
 }
 
-void buf_write(void)
+static void draw_obj(void)
+{
+	struct spos orig_cpos = _gls->cpos;
+	for (int i = 0; i < _gls->objects->len - 1; i++) {
+		struct object cobj = vector_get(_gls->objects, i, struct object);
+		curs_mov(cobj.pos.r, cobj.pos.c);
+		str_append(_gls->abuf, char2str(cobj.rep), 1);
+	}
+	curs_mov(orig_cpos.r, orig_cpos.c);
+	return;
+}
+
+static inline void buf_write(void)
 {
 	write(STDOUT, _gls->abuf->str, _gls->abuf->len);
+	return;
+}
+
+void paintscreen(void)
+{
+	draw_obj();
+	buf_write();
 	str_flush(_gls->abuf);
 	return;
 }

@@ -5,8 +5,7 @@ short int button_create(struct spos butpos, char **sarr /* Array of C strings */
 	w += 2;
 	h += 1;
 
-	int r = _gls->cpos.r;
-	int c = _gls->cpos.c;
+	struct spos orig_cpos = _gls->cpos;
 	short int id;
 	struct button cbut;
 	char tmp[4];
@@ -42,7 +41,7 @@ short int button_create(struct spos butpos, char **sarr /* Array of C strings */
 	cbut.action = NULL;
 
 	__vector_pushback(_gls->buttons, &cbut);
-	curs_mov(r, c);
+	curs_mov(orig_cpos.r, orig_cpos.c);
 	return id;
 }
 

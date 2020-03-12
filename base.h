@@ -25,14 +25,22 @@ struct button {
 	void (*action)(void);
 };
 
+struct object {
+	short int id;
+	char rep;
+	struct spos pos;
+};
+
 struct libascii_stat {
 	struct spos cpos;
 	struct termios init_termios;
 	struct winsize ws;
 	int echo; /* When receiving input, should I echo it on output? */
 	string *abuf;
-	int but_idmax; /* Most recent object id */
+	int but_idmax; /* Most recent button id */
+	int obj_idmax; /* Most recent object id */
 	struct vector *buttons;
+	struct vector *objects;
 };
 
 /* Declaring globlal variables */
@@ -41,3 +49,4 @@ struct libascii_stat *_glob_lascii_stat;
 #define _gls _glob_lascii_stat
 #define NEWLINE '\r'
 #define CTRL_KEY(k) ((k) & 0x1f)
+#define MKSPOS(x, y) ((struct spos){(x), (y)})

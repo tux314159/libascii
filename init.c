@@ -5,6 +5,7 @@ void libascii_init(void)
 	_gls = malloc(sizeof(struct libascii_stat));
 	_gls->abuf = str_create();
 	_gls->buttons = vector_create(sizeof(struct button));
+	_gls->objects = vector_create(sizeof(struct object));
 	_gls->echo = 0;
 	_gls->but_idmax = 0;
 	/* Use alternate buffer */

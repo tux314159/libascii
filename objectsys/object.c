@@ -1,0 +1,15 @@
+#include "object.h"
+
+short int object_create(char rep, struct spos pos)
+{
+	__vector_pushback(_gls->objects, &(struct object){++_gls->obj_idmax, rep, pos});
+	return _gls->obj_idmax;
+}
+
+void object_del(short int id)
+{
+	vector_erase(_gls->objects, id - 1);
+	for (int i = id; i < _gls->objects->len - 1; i++)
+		vector_getptr(_gls->objects, i, struct button)->id -= 1;
+	return;
+}
