@@ -13,7 +13,7 @@ void curs_mov(short int newr, short int newc)
 static void draw_obj(void)
 {
 	struct spos orig_cpos = _gls->cpos;
-	for (int i = 0; i < _gls->objects->len - 1; i++) {
+	for (int i = 0; i < _gls->obj_idmax; i++) {
 		struct object cobj = vector_get(_gls->objects, i, struct object);
 		curs_mov(cobj.pos.r, cobj.pos.c);
 		str_append(_gls->abuf, char2str(cobj.rep), 1);
