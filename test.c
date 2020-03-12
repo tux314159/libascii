@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "api.h"
 
+short int c1, c2, c3;
+char *speeches[3] = {"Hi!", "Bye!", "No."};
+
 void say_hi(void)
 {
 	buf_putstr("HIIII");
@@ -27,17 +30,10 @@ int main(void)
 	buf_write();
 	scankey();
 
-
 	clearscreen();
-
-
 	/* Page 2 */
-	char *buttext[6] = {"Hello!", "Bye..."};
-	button_create((struct spos){4, 5}, buttext, 2, 10, 3);
-	button_bind(1, &say_hi);
 	curs_mov(getwinrows() / 2, getwincols() / 2 - 5);
 	buf_putstr("libascii v0");
-	button_call(1);
 	curs_mov(getwinrows(), 0);
 	buf_putstr("Type something and press enter: ");
 	buf_write();
@@ -51,7 +47,18 @@ int main(void)
 	buf_write();
 	scankey();
 
-/* Exit code */
+	clearscreen();
+	/* Page 3 */
+	buf_putstr("Pick something to say!");
+	for (int i = 0; i < 3; i++)
+		button_create((struct spos){(i+1)*3, 2}, speeches+i, 1, strlen(speeches[i]), 1);
+	buf_write();
+get_button_choice: ;;
+	char choice = scankey();
+	if (choice < '1' || choice > '3')
+		goto get_button_choice;
+
+	/* Exit code */
 	endraw();
 	str_del(t);
 	return 0;
