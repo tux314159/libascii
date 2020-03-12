@@ -9,7 +9,7 @@ short int object_create(char rep, struct spos pos)
 void object_del(short int id)
 {
 	vector_erase(_gls->objects, id - 1);
-	for (int i = id; i < _gls->objects->len - 1; i++)
+	for (int i = id; i < _gls-> obj_idmax - 1; i++)
 		vector_getptr(_gls->objects, i, struct object)->id -= 1;
 	_gls->obj_idmax -= 1;
 	return;
