@@ -16,7 +16,7 @@ int main(void)
 	setecho();
 
 	/* Page 1 */
-	object_create('@', MKSPOS(5, 1));
+	o1 = object_create('@', MKSPOS(5, 1));
 	curs_mov(getwinrows() / 2, getwincols() / 2 - 5);
 	buf_putstr("libascii v0");
 	curs_mov(getwinrows(), 0);
@@ -33,6 +33,7 @@ int main(void)
 
 	clearscreen();
 	/* Page 2 */
+	object_mov(o1, MKSPOS(5, 2));
 	curs_mov(getwinrows() / 2, getwincols() / 2 - 5);
 	buf_putstr("libascii v0");
 	curs_mov(getwinrows(), 0);
@@ -51,6 +52,7 @@ int main(void)
 
 	clearscreen();
 	/* Page 3 */
+	object_mov(o1, MKSPOS(5, 2));
 	buf_putstr("Pick something to say!");
 	for (int i = 0; i < 3; i++)
 		button_create(MKSPOS((i+1)*3, 2), speeches+i, 1, strlen(speeches[i]), 1);
