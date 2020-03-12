@@ -4,9 +4,9 @@ void libascii_init(void)
 {
 	_gls = malloc(sizeof(struct libascii_stat));
 	_gls->abuf = str_create();
+	_gls->buttons = vector_create(sizeof(struct button));
 	_gls->echo = 0;
 	_gls->idmax = 0;
-	_gls->buttons = calloc(MAX_BUTTONS, sizeof(struct button));
 	/* Use alternate buffer */
 	write(STDOUT, "\x1b[?1049h", 8);
 	/* Get window size */
@@ -35,7 +35,7 @@ void libascii_exit(void)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &(_gls->init_termios));
 	/* Free memory */
 	str_del(_gls->abuf);
-	free(_gls->buttons);
+	vector_del(_gls->buttons);
 	free(_gls);
 	return;
 }
