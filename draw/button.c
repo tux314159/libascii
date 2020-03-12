@@ -40,19 +40,20 @@ short int button_create(struct spos butpos, char **sarr /* Array of C strings */
 
 	cbut.id = id;
 	cbut.action = NULL;
-	_gls->buttons[id - 1] = cbut;
+
+	__vector_pushback(_gls->buttons, &cbut);
 	curs_mov(r, c);
 	return id;
 }
 
 void button_bind(short int id, void (*action)(void))
 {
-	_gls->buttons[id - 1].action = action;
+	vector_getptr(_gls->buttons, id - 1, struct button)->action = action;
 	return;
 }
 
 void button_call(short int id)
 {
-	_gls->buttons[id - 1].action();
+	vector_get(_gls->buttons, id - 1, struct button).action();
 	return;
 }

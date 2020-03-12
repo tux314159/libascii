@@ -10,6 +10,7 @@
 #include "macros.h"
 #endif
 #include "libmds/src/dynstr/strop.h"
+#include "libmds/src/vector/vector.h"
 
 #define MAX_BUTTONS 50
 
@@ -31,8 +32,7 @@ struct libascii_stat {
 	int echo; /* When receiving input, should I echo it on output? */
 	string *abuf;
 	int idmax; /* Most recent object id */
-	struct button *buttons; /* Not using libmds vectors here
-	cos I don't know how */
+	struct vector *buttons;
 };
 
 /* Declaring globlal variables */
