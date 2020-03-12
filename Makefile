@@ -8,7 +8,7 @@ AR = ar rcs $@
 #all : git test dynamic static
 #	@echo -e "\033[0;31mRun this:  export LD_LIBRARY_PATH=\$${LD_LIBRARY_PATH}:$$(pwd)\033[0m"
 
-all : git test_static dynamic static
+all : test_static dynamic static
 	@echo -e "\033[0;31mRun this:  export LD_LIBRARY_PATH=\$${LD_LIBRARY_PATH}:$$(pwd)\033[0m"
 
 dynamic : libascii.so
