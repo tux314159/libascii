@@ -3,7 +3,7 @@
 #endif
 
 char *char2str(char x);
-void curs_mov(short int newr, short int newc);
+void curs_mov(struct spos newpos);
 void paintscreen(void);
 char scankey(void);
 void scanstr(string **store, char delim);

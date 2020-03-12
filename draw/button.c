@@ -14,26 +14,26 @@ short int button_create(struct spos butpos, char **sarr /* Array of C strings */
 	if (id > MAX_BUTTONS) return -1; /* Error! */
 
 	for (int i = 1; i <= h; i++) {
-		curs_mov(butpos.r + i, butpos.c);
+		curs_mov(MKSPOS(butpos.r + i, butpos.c));
 		buf_putstr("|");
-		curs_mov(butpos.r + i, butpos.c + w - 1);
+		curs_mov(MKSPOS(butpos.r + i, butpos.c + w - 1));
 		buf_putstr("|");
 	}
 
-	curs_mov(butpos.r, butpos.c);
+	curs_mov(butpos);
 	for (int i = 0; i < w; i++)
 		buf_putstr("-");
-	curs_mov(butpos.r + h, butpos.c);
+	curs_mov(MKSPOS(butpos.r + h, butpos.c));
 	for (int i = 0; i < w; i++)
 		buf_putstr("-");
 
 	for (int i = 0; i < arrlen && i < h; i++) {
-		curs_mov(butpos.r + i + 1, butpos.c + 1);
+		curs_mov(MKSPOS(butpos.r + i + 1, butpos.c + 1));
 		buf_putstr(sarr[i]);
 	}
 
 	/* Put button id there */
-	curs_mov(butpos.r, butpos.c);
+	curs_mov(butpos);
 	sprintf(tmp, "%d", id);
 	buf_putstr(tmp);
 
@@ -41,7 +41,7 @@ short int button_create(struct spos butpos, char **sarr /* Array of C strings */
 	cbut.action = NULL;
 
 	__vector_pushback(_gls->buttons, &cbut);
-	curs_mov(orig_cpos.r, orig_cpos.c);
+	curs_mov(orig_cpos);
 	return id;
 }
 

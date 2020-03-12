@@ -1,12 +1,11 @@
 #include "basic.h"
 
-void curs_mov(short int newr, short int newc)
+void curs_mov(struct spos newpos)
 {
 	char t[12] = "\0\0\0\0\0\0\0\0\0\0\0";
-	sprintf(t, "\x1b[%d;%dH", newr, newc);
+	sprintf(t, "\x1b[%d;%dH", newpos.r, newpos.c);
 	str_append(_gls->abuf, t, strlen(t));
-	_gls->cpos.r = newr;
-	_gls->cpos.c = newc;
+	_gls->cpos = newpos;
 	return;
 }
 
@@ -15,10 +14,10 @@ static void draw_obj(void)
 	struct spos orig_cpos = _gls->cpos;
 	for (int i = 0; i < _gls->obj_idmax; i++) {
 		struct object cobj = vector_get(_gls->objects, i, struct object);
-		curs_mov(cobj.pos.r, cobj.pos.c);
+		curs_mov(cobj.pos);
 		str_append(_gls->abuf, char2str(cobj.rep), 1);
 	}
-	curs_mov(orig_cpos.r, orig_cpos.c);
+	curs_mov(orig_cpos);
 	return;
 }
 
@@ -78,7 +77,7 @@ void scanstr(string **store, char delim)
 			str_append(*store, t, 3);
 		}
 	}
-	curs_mov(_gls->cpos.r, _gls->cpos.c);
+	curs_mov(_gls->cpos);
 	return;
 }
 

@@ -17,14 +17,14 @@ int main(void)
 
 	/* Page 1 */
 	o1 = object_create('@', MKSPOS(5, 1));
-	curs_mov(getwinrows() / 2, getwincols() / 2 - 5);
+	curs_mov(MKSPOS(getwinrows() / 2, getwincols() / 2 - 5));
 	buf_putstr("libascii v0");
-	curs_mov(getwinrows(), 0);
+	curs_mov(MKSPOS(getwinrows(), 0));
 	buf_putstr("Press a key: ");
 	paintscreen();
 	char rec = scankey();
 	clearline(getwinrows());
-	curs_mov(1, 1);
+	curs_mov(MKSPOS(1, 1));
 	buf_putstr("You pressed '");
 	buf_putstr(rec == NEWLINE ? "enter" : char2str(rec));
 	buf_putstr("' (Press any key to continue)");
@@ -34,16 +34,16 @@ int main(void)
 	clearscreen();
 	/* Page 2 */
 	object_mov(o1, MKSPOS(5, 2));
-	curs_mov(getwinrows() / 2, getwincols() / 2 - 5);
+	curs_mov(MKSPOS(getwinrows() / 2, getwincols() / 2 - 5));
 	buf_putstr("libascii v0");
-	curs_mov(getwinrows(), 0);
+	curs_mov(MKSPOS(getwinrows(), 0));
 	buf_putstr("Type something and press enter: ");
-	curs_mov(getwinrows(), strlen("Type something and press enter: ") + 2);
+	curs_mov(MKSPOS(getwinrows(), strlen("Type something and press enter: ") + 1));
 	paintscreen();
 	string *t = str_create();
 	scanstr(&t, NEWLINE);
 	clearline(getwinrows());
-	curs_mov(1, 1);
+	curs_mov(MKSPOS(1, 1));
 	buf_putstr("You typed '");
 	buf_putstr(t->str);
 	buf_putstr("' (Press any key to continue)");
