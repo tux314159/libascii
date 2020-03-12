@@ -11,7 +11,7 @@ short int button_create(struct spos butpos, char **sarr /* Array of C strings */
 	struct button cbut;
 	char tmp[4];
 
-	id = ++_gls->idmax;
+	id = ++_gls->but_idmax;
 	if (id > MAX_BUTTONS) return -1; /* Error! */
 
 	for (int i = 1; i <= h; i++) {

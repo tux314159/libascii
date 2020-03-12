@@ -31,7 +31,7 @@ struct libascii_stat {
 	struct winsize ws;
 	int echo; /* When receiving input, should I echo it on output? */
 	string *abuf;
-	int idmax; /* Most recent object id */
+	int but_idmax; /* Most recent object id */
 	struct vector *buttons;
 };
 

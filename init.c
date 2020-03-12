@@ -6,7 +6,7 @@ void libascii_init(void)
 	_gls->abuf = str_create();
 	_gls->buttons = vector_create(sizeof(struct button));
 	_gls->echo = 0;
-	_gls->idmax = 0;
+	_gls->but_idmax = 0;
 	/* Use alternate buffer */
 	write(STDOUT, "\x1b[?1049h", 8);
 	/* Get window size */
