@@ -4,12 +4,6 @@
 short int c1, c2, c3, o1;
 char *speeches[3] = {"Hi!", "Bye!", "No."};
 
-void say_hi(void)
-{
-	buf_putstr("HIIII");
-	return;
-}
-
 int main(void)
 {
 	startraw();
