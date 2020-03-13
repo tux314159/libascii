@@ -8,17 +8,21 @@ AR = ar rcs $@
 #all : git test dynamic static
 #	@echo -e "\033[0;31mRun this:  export LD_LIBRARY_PATH=\$${LD_LIBRARY_PATH}:$$(pwd)\033[0m"
 
-all : test_static dynamic static
+all : test_static maze_static dynamic static
 	@echo -e "\033[0;31mRun this:  export LD_LIBRARY_PATH=\$${LD_LIBRARY_PATH}:$$(pwd)\033[0m"
 
 dynamic : libascii.so
 
 static : libascii.a
 
-test : test.c libascii.so libmds/src/libmds.so
+test : maze.c test.c libascii.so libmds/src/libmds.so
 	$(CC) test.c -L. -lascii -Llibmds/src/ -lmds
+	$(CC) maze.c -L. -lascii -Llibmds/src/ -lmds
 
 test_static: test.c libascii.a libmds/src/libmds.a
+	$(CC) $^
+
+maze_static: maze.c libascii.a libmds/src/libmds.a
 	$(CC) $^
 
 libascii.a : init.o basic.o draw/*.o objectsys/*.o
@@ -47,6 +51,6 @@ clean : FORCE
 	$(MAKE) -C libmds/src/ cleanproper
 
 cleanproper : clean
-	rm -f test test_static *.a *.so
+	rm -f test test_static *.a *.so maze maze_static
 
 FORCE :
