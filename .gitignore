@@ -3,5 +3,6 @@
 *.a
 test
 test_static
+maze
 .cquery
 .vscode
