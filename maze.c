@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 #include "api.h"
 
 #define CURR curr-1 /* because screen is 1-indexed but the array is 0-indexed */
@@ -11,6 +12,9 @@ short int curr = 6, curc = 6;
 int main(void)
 {
 	libascii_init();
+	time_t starttime = time(NULL);
+	int won = 0;
+
 	object_create('@', MKSPOS(curr, curc));
 	FILE *dahmap = fopen("map.txt", "r");
 	{
@@ -41,6 +45,11 @@ int main(void)
 	paintscreen();
 
 	while (scan != 'q') {
+		if (map[CURR][CURC] == '#') {
+			won = 1;
+			break;
+		}
+
 		scan = scankey();
 		for (int i = 0; i < getwinrows(); i++) {
 			for (int j = 0; j < getwincols(); j++) {
@@ -52,8 +61,6 @@ int main(void)
 			case 'h':
                                 if (map[CURR][CURC-1] != '+')
 					  curc -= 1;
-				  if (map[CURR][CURC-1] != '#')
-					  goto won;
 				  break;
 			case 'j':
                                   if (map[CURR+1][CURC] != '+')
@@ -74,7 +81,17 @@ int main(void)
 		paintscreen();
 	}
 
-won:
 	object_del(1);
+	if (won) {
+		clearscreen();
+		curs_mov(MKSPOS(getwinrows()/2, getwincols()/2 - 5));
+		buf_putstr("You WIN! Yay!");
+		curs_mov(MKSPOS(getwinrows()/2 + 1, getwincols()/2 - 25));
+		char msgaux[70];
+		sprintf(msgaux, "\nBut you took %ld seconds... Can you do better?", time(NULL) - starttime);
+		buf_putstr(msgaux);
+		paintscreen();
+		sleep(1);
+	}
 	libascii_exit();
 }
