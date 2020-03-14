@@ -100,3 +100,8 @@ void stdin_nonblock(void) {
 	int flags = fcntl(STDIN, F_GETFL, 0);
 	fcntl(STDIN, F_SETFL, flags | O_NONBLOCK);
 }
+
+void stdin_block(void) {
+	int flags = fcntl(STDIN, F_GETFL, 0);
+	fcntl(STDIN, F_SETFL, flags & ~O_NONBLOCK);
+}

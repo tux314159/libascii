@@ -10,6 +10,7 @@ void scanstr(string **store, char delim);
 void clearscreen(void);
 void clearline(short int linenum);
 void stdin_nonblock(void);
+void stdin_block(void);
 #define getwinrows() (_gls->ws.ws_row)
 #define getwincols() (_gls->ws.ws_col)
 #define setecho() (_gls->echo = 1)
