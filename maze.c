@@ -88,10 +88,13 @@ int main(void)
 		buf_putstr("You WIN! Yay!");
 		curs_mov(MKSPOS(getwinrows()/2 + 1, getwincols()/2 - 25));
 		char msgaux[70];
-		sprintf(msgaux, "\nBut you took %ld seconds... Can you do better?", time(NULL) - starttime);
+		sprintf(msgaux, "But you took %ld seconds... Can you do better?", time(NULL) - starttime);
+		buf_putstr(msgaux);
+		strcpy(msgaux, "(Press any key to exit)");
+		curs_mov(MKSPOS(getwinrows()/2 + 2, getwincols()/2 - 12));
 		buf_putstr(msgaux);
 		paintscreen();
-		sleep(1);
+		scankey();
 	}
 	libascii_exit();
 }
