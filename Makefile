@@ -46,5 +46,6 @@ clean : FORCE
 
 cleanproper : clean
 	rm -f test maze *.a *.so
+	rm -rf libmds
 
 FORCE :
