@@ -95,3 +95,8 @@ void clearline(short int linenum)
 	str_append(_gls->abuf, "\x1b[K", 3);
 	return;
 }
+
+void stdin_nonblock(void) {
+	int flags = fcntl(STDIN, F_GETFL, 0);
+	fcntl(STDIN, F_SETFL, flags | O_NONBLOCK);
+}

@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <fcntl.h>
 #ifndef INC_MACROS
 #include "macros.h"
 #endif
