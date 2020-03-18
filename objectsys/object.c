@@ -20,3 +20,8 @@ void object_mov(short int id, struct spos newpos)
 	vector_getptr(_gls->objects, id - 1, struct object)->pos = newpos;
 	return;
 }
+
+struct object object_getattr(short int id)
+{
+	return vector_get(_gls->objects, id - 1, struct object);
+}
