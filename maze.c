@@ -46,17 +46,12 @@ int main(void)
 	paintscreen();
 
 	while (scan != 'q') {
+		scan = scankey();
+		curs_mov(MKSPOS(curr, curc));
+		buf_putstr(char2str(' '));
 		if (map[CURR][CURC] == '#') {
 			won = 1;
 			break;
-		}
-
-		scan = scankey();
-		for (int i = 0; i < getwinrows(); i++) {
-			for (int j = 0; j < getwincols(); j++) {
-				curs_mov(MKSPOS(i+1, j+1));
-				buf_putstr(char2str(map[i][j]));
-			}
 		}
 		switch (scan) {
 			case 'h':
