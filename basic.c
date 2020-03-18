@@ -9,6 +9,18 @@ void curs_mov(struct spos newpos)
 	return;
 }
 
+void curs_invis(void)
+{
+	str_append(_gls->abuf, "\x1b[?25l", 6);
+	return;
+}
+
+void curs_vis(void)
+{
+	str_append(_gls->abuf, "\x1b[?25h", 6);
+	return;
+}
+
 static void draw_obj(void)
 {
 	struct spos orig_cpos = _gls->cpos;

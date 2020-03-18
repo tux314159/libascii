@@ -3,7 +3,7 @@
 #include "api.h"
 
 #define CURR curr-1 /* because screen is 1-indexed but the array is 0-indexed */
-#define CURC curc-1 /* because screen is 1-indexed but the array is 0-indexed */
+#define CURC curc-1 /* ditto */
 
 char map[200][200];
 char scan;
@@ -15,6 +15,7 @@ int main(void)
 	time_t starttime = time(NULL);
 	int won = 0;
 
+	curs_invis();
 	object_create('@', MKSPOS(curr, curc));
 	FILE *dahmap = fopen("map.txt", "r");
 	{
@@ -96,5 +97,7 @@ int main(void)
 		paintscreen();
 		scankey();
 	}
+	curs_vis();
+	paintscreen();
 	libascii_exit();
 }
