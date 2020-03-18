@@ -15,7 +15,6 @@ int main(void)
 	time_t starttime = time(NULL);
 	int won = 0;
 
-	curs_invis();
 	object_create('@', MKSPOS(curr, curc));
 	FILE *dahmap = fopen("map.txt", "r");
 	{
@@ -43,6 +42,7 @@ int main(void)
 			buf_putstr(char2str(map[i][j]));
 		}
 	}
+	curs_mov(MKSPOS(curr, curc));
 	paintscreen();
 
 	while (scan != 'q') {
@@ -74,6 +74,7 @@ int main(void)
 				  break;
 		}
 		object_mov(1, MKSPOS(curr, curc));
+		curs_mov(MKSPOS(curr, curc));
 		paintscreen();
 	}
 
@@ -92,7 +93,6 @@ int main(void)
 		paintscreen();
 		scankey();
 	}
-	curs_vis();
 	paintscreen();
 	libascii_exit();
 }
