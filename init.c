@@ -2,12 +2,16 @@
 
 void libascii_init(void)
 {
+	/* Base */
 	_gls = malloc(sizeof(struct libascii_stat));
 	_gls->abuf = str_create();
-	_gls->buttons = vector_create(sizeof(struct button));
-	_gls->objects = vector_create(sizeof(struct object));
 	_gls->echo = 0;
+	/* Buttons */
+	_gls->buttons = vector_create(sizeof(struct button));
 	_gls->but_idmax = 0;
+	/* Objects */
+	_gls->objects = vector_create(sizeof(struct object));
+	_gls->obj_idmax = 0;
 	/* Use alternate buffer */
 	write(STDOUT, "\x1b[?1049h", 8);
 	/* Get window size */

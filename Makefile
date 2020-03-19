@@ -42,6 +42,7 @@ git : FORCE
 
 clean : FORCE
 	rm -rf *.o
+	rm -rf */*.o
 	$(MAKE) -C libmds/src/ cleanproper
 
 cleanproper : clean
