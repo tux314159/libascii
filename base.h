@@ -15,7 +15,7 @@
 
 #define MAX_BUTTONS 50
 
-/* Defining some useful structs */
+/* Defining some essential structs */
 struct spos { /* Screen position */
 	short int r;
 	short int c;
@@ -30,6 +30,8 @@ struct object {
 	short int id;
 	char rep;
 	struct spos pos;
+	struct vector *actions;
+	short int act_max;
 };
 
 struct libascii_stat {
