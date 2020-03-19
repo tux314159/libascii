@@ -1,4 +1,4 @@
-CFLAGS = -g -Wall -Wpedantic -Wextra -fPIC -o $@
+CFLAGS = -g -Wall -fPIC -o $@
 CC = gcc $(CFLAGS)
 OCC = $(CC) -c
 AR = ar rcs $@
