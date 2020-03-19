@@ -19,10 +19,10 @@ test : test.c libascii.so libmds/src/libmds.so
 maze : maze.c libascii.so libmds/src/libmds.so
 	$(CC) maze.c -L. -lascii -Llibmds/src/ -lmds
 
-libascii.a : init.o basic.o draw/*.o objectsys/*.o
+libascii.a : init.o basic.o draw/buf_putstr.o draw/button.o objectsys/object.o
 	$(AR) $^
 
-libascii.so : init.o basic.o draw/*.o objectsys/*.o
+libascii.so : init.o basic.o draw/buf_putstr.o draw/button.o objectsys/object.o
 	$(CC) -shared -fPIC $^
 
 init.o : init.c
