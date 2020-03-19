@@ -25,12 +25,6 @@ libascii.a : init.o basic.o draw/buf_putstr.o draw/button.o objectsys/object.o
 libascii.so : init.o basic.o draw/buf_putstr.o draw/button.o objectsys/object.o
 	$(CC) -shared -fPIC $^
 
-init.o : init.c
-basic.o : basic.c
-draw/buf_putstr.o : draw/buf_putstr.c
-draw/button.o : draw/button.c
-objectsys/object.o : objectsys/object.c
-
 libmds/src/libmds.so : FORCE
 	$(MAKE) -C libmds/src/
 
