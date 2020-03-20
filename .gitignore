@@ -5,5 +5,4 @@ test
 test_static
 maze
 maze_static
-.cquery
-.vscode
+tags
