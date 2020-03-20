@@ -13,7 +13,9 @@
 #include "libmds/src/dynstr/strop.h"
 #include "libmds/src/vector/vector.h"
 
+/* Macros and typedefs */
 #define MAX_BUTTONS 50
+typedef void (*void_fnptr)(void);
 
 /* Defining some essential structs */
 struct spos { /* Screen position */
@@ -23,7 +25,7 @@ struct spos { /* Screen position */
 
 struct button {
 	short int id;
-	void (*action)(void);
+	void_fnptr action;
 };
 
 struct object {

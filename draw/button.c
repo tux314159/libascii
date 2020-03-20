@@ -45,7 +45,7 @@ short int button_create(struct spos butpos, char **sarr /* Array of C strings */
 	return id;
 }
 
-void button_bind(short int id, void (*action)(void))
+void button_bind(short int id, void_fnptr action)
 {
 	vector_getptr(_gls->buttons, id - 1, struct button)->action = action;
 	return;
