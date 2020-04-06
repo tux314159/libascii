@@ -1,5 +1,11 @@
 #include "basic.h"
 
+void buf_putstr(char *str)
+{
+	str_append(_gls->abuf, str, strlen(str));
+	return;
+}
+
 void curs_mov(struct spos newpos)
 {
 	char t[12] = "\0\0\0\0\0\0\0\0\0\0\0";
