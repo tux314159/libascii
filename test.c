@@ -50,7 +50,7 @@ int main(void)
 	buf_putstr("Pick something to say!");
 	for (int i = 0; i < 3; i++)
 		button_create(MKSPOS((i+1)*3, 2), speeches+i, 1, strlen(speeches[i]), 1);
-		
+
 	paintscreen();
 get_button_choice: ;;
 	char choice = scankey();
@@ -58,6 +58,7 @@ get_button_choice: ;;
 		goto get_button_choice;
 
 	/* Exit code */
+	object_del(o1);
 	endraw();
 	str_del(t);
 	return 0;

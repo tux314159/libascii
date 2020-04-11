@@ -31,8 +31,6 @@ struct object {
 	short int id;
 	char rep;
 	struct spos pos;
-	struct vector *actions;
-	short int act_max;
 };
 
 struct libascii_stat {

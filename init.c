@@ -41,6 +41,7 @@ void libascii_exit(void)
 	/* Free memory */
 	str_del(_gls->abuf);
 	vector_del(_gls->buttons);
+	vector_del(_gls->objects);
 	free(_gls);
 	return;
 }
