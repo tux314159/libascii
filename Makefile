@@ -32,6 +32,7 @@ libmds/src/libmds.a : FORCE
 	$(MAKE) -C libmds/src/
 
 git : FORCE
+	git submodule init
 	git submodule update --remote
 
 clean : FORCE
