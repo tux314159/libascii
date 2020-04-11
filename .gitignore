@@ -1,6 +1,7 @@
 *.o
 *.so
 *.a
+.worktrees/
 test
 test_static
 maze
