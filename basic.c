@@ -39,7 +39,7 @@ static void draw_obj(void)
 	return;
 }
 
-static inline void draw_but(void)
+static void draw_but(void)
 {
 	struct button cbut;
 	for (int i = 0; i < _gls->buttons->len; i++) {
@@ -58,11 +58,11 @@ static inline void draw_but(void)
 		curs_mov(MKSPOS(cbut.pos.r + cbut.h, cbut.pos.c));
 		for (int j = 0; j < cbut.w; j++)
 			buf_putstr("-");
+
 		/* Draw the text */
-		for (int j = 0; j < cbut.arrlen && j < cbut.h; j++) {
-			curs_mov(MKSPOS(cbut.pos.r + j + 1, cbut.pos.c + 1));
-			buf_putstr(cbut.strings[j]);
-		}
+		curs_mov(MKSPOS(cbut.pos.r + 1, cbut.pos.c + 1));
+		buf_putstr(cbut.contents->str);
+
 		/* And print the label */
 		char tmp[MAX_BUTTONS];
 		curs_mov(cbut.pos);

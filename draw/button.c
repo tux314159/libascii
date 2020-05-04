@@ -1,5 +1,5 @@
 #include "draw.h"
-short int button_create(struct spos butpos, char **sarr /* Array of C strings */,
+short int button_create(struct spos butpos, char *sarr,
 	size_t arrlen, short int w, short int h)
 {
 	w += 2;
@@ -12,12 +12,12 @@ short int button_create(struct spos butpos, char **sarr /* Array of C strings */
 	id = ++_gls->but_idmax;
 	if (id > MAX_BUTTONS) return -1; /* Error, too many buttons! */
 
-	for (int i = 0; i < arrlen; i++)
-		strcpy(cbut.strings[i], sarr[i]);
+	cbut.contents = str_create();
 	cbut.id = id;
 	cbut.w = w;
 	cbut.h = h;
 	cbut.pos = butpos;
+	str_append(cbut.contents, sarr, strlen(sarr));
 	cbut.action = NULL;
 
 	__vector_pushback(_gls->buttons, &cbut);

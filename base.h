@@ -14,8 +14,6 @@
 
 /* Macros and typedefs */
 #define MAX_BUTTONS 50
-#define MAX_BUTTON_LINELEN 200
-#define MAX_BUTTON_LINES 200
 typedef void (*void_fnptr)(void);
 
 /* Defining some essential structs */
@@ -29,7 +27,7 @@ struct button {
 	short int w;
 	short int h;
 	struct spos pos;
-	char strings[MAX_BUTTON_LINES+2][MAX_BUTTON_LINELEN]; /* just to be safe */
+	string *contents;
 	size_t arrlen;
 	void_fnptr action;
 };
