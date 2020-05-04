@@ -31,8 +31,7 @@ int main(void)
 	object_mov(o1, MKSPOS(5, 2));
 	curs_mov(MKSPOS(getwinrows() / 2, getwincols() / 2 - 5));
 	buf_putstr("libascii v0");
-	curs_mov(MKSPOS(getwinrows(), 0));
-	buf_putstr("Type something and press enter: ");
+	curs_mov(MKSPOS(getwinrows(), 0)); buf_putstr("Type something and press enter: ");
 	curs_mov(MKSPOS(getwinrows(), strlen("Type something and press enter: ") + 1));
 	curs_vis();
 	paintscreen();
@@ -52,7 +51,7 @@ int main(void)
 	object_mov(o1, MKSPOS(5, 3));
 	buf_putstr("Pick something to say!");
 	for (int i = 0; i < 3; i++)
-		button_create(MKSPOS((i+1)*3, 2), speeches+i, 1, strlen(speeches[i]), 1);
+		button_create(MKSPOS((i+1)*3, 2), speeches[i], 1, strlen(speeches[i]), 1);
 
 	paintscreen();
 get_button_choice: ;;

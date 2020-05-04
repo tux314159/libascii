@@ -24,6 +24,11 @@ struct spos { /* Screen position */
 
 struct button {
 	short int id;
+	short int w;
+	short int h;
+	struct spos pos;
+	string *contents;
+	size_t arrlen;
 	void_fnptr action;
 };
 
