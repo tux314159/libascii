@@ -10,6 +10,7 @@ int main(void)
 	setecho();
 
 	/* Page 1 */
+	curs_invis();
 	o1 = object_create('@', MKSPOS(5, 1));
 	curs_mov(MKSPOS(getwinrows() / 2, getwincols() / 2 - 5));
 	buf_putstr("libascii v0");
@@ -33,11 +34,13 @@ int main(void)
 	curs_mov(MKSPOS(getwinrows(), 0));
 	buf_putstr("Type something and press enter: ");
 	curs_mov(MKSPOS(getwinrows(), strlen("Type something and press enter: ") + 1));
+	curs_vis();
 	paintscreen();
 	string *t = str_create();
 	scanstr(&t, NEWLINE);
 	clearline(getwinrows());
 	curs_mov(MKSPOS(1, 1));
+	curs_invis();
 	buf_putstr("You typed '");
 	buf_putstr(t->str);
 	buf_putstr("' (Press any key to continue)");
@@ -58,6 +61,8 @@ get_button_choice: ;;
 		goto get_button_choice;
 
 	/* Exit code */
+	curs_vis();
+	paintscreen();
 	object_del(o1);
 	endraw();
 	str_del(t);
