@@ -1,0 +1,3 @@
+[submodule "libmds"]
+	path = libmds
+	url = https://github.com//erratic-c-programmer/libmds
