@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <time.h>
+#include <errno.h>
 #include "api.h"
 
 #define CURR curr-1 /* because screen is 1-indexed but the array is 0-indexed */
@@ -9,30 +10,34 @@ char map[200][200];
 char scan;
 short int curr = 6, curc = 6;
 
-int main(void)
+int main(int argc, char **argv)
 {
+	if (argc != 2) {
+		printf("Please pass the map filename as the first and only argument.\n");
+		exit(1);
+	}
+	FILE *dahmap = fopen(argv[1], "r");
+	perror("Opening map file");
+	if (errno != 0)
+		exit(2);
+
 	libascii_init();
 	time_t starttime = time(NULL);
 	int won = 0;
 
 	object_create('@', MKSPOS(curr, curc));
-	FILE *dahmap = fopen("map.txt", "r");
-	{
-		int i = 0;
-		int j = 0;
-		char t = '\0';
-		for (;;) {
-			t = fgetc(dahmap);
-			if (t == EOF)
-				break;
-			if (t == '\n') {
-				i++;
-				j = 0;
-				continue;
-			}
-			map[i][j] = t;
-			j++;
+	char t = '\0';
+	int i = 0;
+	int j = 0;
+	while (t != EOF) {
+		t = fgetc(dahmap);
+		if (t == '\n') {
+			i++;
+			j = 0;
+			continue;
 		}
+		map[i][j] = t;
+		j++;
 	}
 	fclose(dahmap);
 
@@ -49,10 +54,6 @@ int main(void)
 		scan = scankey();
 		curs_mov(MKSPOS(curr, curc));
 		buf_putstr(char2str(' '));
-		if (map[CURR][CURC] == '#') {
-			won = 1;
-			break;
-		}
 		switch (scan) {
 			case 'h':
                                 if (map[CURR][CURC-1] != '+')
@@ -76,6 +77,11 @@ int main(void)
 		object_mov(1, MKSPOS(curr, curc));
 		curs_mov(MKSPOS(curr, curc));
 		paintscreen();
+
+		if (map[CURR][CURC] == '#') {
+			won = 1;
+			break;
+		}
 	}
 
 	object_del(1);
