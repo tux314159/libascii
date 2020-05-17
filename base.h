@@ -53,7 +53,7 @@ struct libascii_stat {
 /* Declaring globlal variables */
 extern struct libascii_stat *_glob_lascii_stat;
 /* Make this less of a pain */
-#define _gls _glob_lascii_stat
+#define _lascii _glob_lascii_stat
 #define NEWLINE '\r'
 #define CTRL_KEY(k) ((k) & 0x1f)
 #define MKSPOS(x, y) ((struct spos){(x), (y)})

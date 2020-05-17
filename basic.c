@@ -2,7 +2,7 @@
 
 void buf_putstr(char *str)
 {
-	str_append(_gls->abuf, str, strlen(str));
+	str_append(_lascii->abuf, str, strlen(str));
 	return;
 }
 
@@ -10,30 +10,30 @@ void curs_mov(struct spos newpos)
 {
 	char t[12] = "\0\0\0\0\0\0\0\0\0\0\0";
 	sprintf(t, "\x1b[%d;%dH", newpos.r, newpos.c);
-	str_append(_gls->abuf, t, strlen(t));
-	_gls->cpos = newpos;
+	str_append(_lascii->abuf, t, strlen(t));
+	_lascii->cpos = newpos;
 	return;
 }
 
 void curs_invis(void)
 {
-	str_append(_gls->abuf, "\x1b[?25l", 6);
+	str_append(_lascii->abuf, "\x1b[?25l", 6);
 	return;
 }
 
 void curs_vis(void)
 {
-	str_append(_gls->abuf, "\x1b[?25h", 6);
+	str_append(_lascii->abuf, "\x1b[?25h", 6);
 	return;
 }
 
 static void draw_obj(void)
 {
-	struct spos orig_cpos = _gls->cpos;
-	for (int i = 0; i < _gls->obj_idmax; i++) {
-		struct object cobj = vector_get(_gls->objects, i, struct object);
+	struct spos orig_cpos = _lascii->cpos;
+	for (int i = 0; i < _lascii->obj_idmax; i++) {
+		struct object cobj = vector_get(_lascii->objects, i, struct object);
 		curs_mov(cobj.pos);
-		str_append(_gls->abuf, char2str(cobj.rep), 1);
+		str_append(_lascii->abuf, char2str(cobj.rep), 1);
 	}
 	curs_mov(orig_cpos);
 	return;
@@ -42,8 +42,8 @@ static void draw_obj(void)
 static void draw_but(void)
 {
 	struct button cbut;
-	for (int i = 0; i < _gls->buttons->len; i++) {
-		cbut = vector_get(_gls->buttons, i, struct button);
+	for (int i = 0; i < _lascii->buttons->len; i++) {
+		cbut = vector_get(_lascii->buttons, i, struct button);
 		/* Draw the button */
 		curs_mov(cbut.pos);
 		for (int j = 1; j <= cbut.h; j++) {
@@ -73,7 +73,7 @@ static void draw_but(void)
 
 static inline void buf_write(void)
 {
-	write(STDOUT, _gls->abuf->str, _gls->abuf->len);
+	write(STDOUT, _lascii->abuf->str, _lascii->abuf->len);
 	return;
 }
 
@@ -82,7 +82,7 @@ void paintscreen(void)
 	draw_obj();
 	draw_but();
 	buf_write();
-	str_flush(_gls->abuf);
+	str_flush(_lascii->abuf);
 	return;
 }
 
@@ -123,18 +123,18 @@ void scanstr(string **store, char delim)
 					t[2] = '\0';
 				}
 			}
-			if (_gls->echo)
+			if (_lascii->echo)
 				write(STDOUT, t, 3);
 			str_append(*store, t, 3);
 		}
 	}
-	curs_mov(_gls->cpos);
+	curs_mov(_lascii->cpos);
 	return;
 }
 
 void clearscreen(void)
 {
-	str_append(_gls->abuf, "\x1b[H\x1b[2J", 7);
+	str_append(_lascii->abuf, "\x1b[H\x1b[2J", 7);
 	return;
 }
 
@@ -142,8 +142,8 @@ void clearline(short int linenum)
 {
 	char t[12] = "\0\0\0\0\0\0\0\0\0\0\0";
 	sprintf(t, "\x1b[%d;1H", linenum);
-	str_append(_gls->abuf, t, strlen(t));
-	str_append(_gls->abuf, "\x1b[K", 3);
+	str_append(_lascii->abuf, t, strlen(t));
+	str_append(_lascii->abuf, "\x1b[K", 3);
 	return;
 }
 

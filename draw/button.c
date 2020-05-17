@@ -5,11 +5,11 @@ short int button_create(struct spos butpos, char *sarr,
 	w += 2;
 	h += 1;
 
-	struct spos orig_cpos = _gls->cpos;
+	struct spos orig_cpos = _lascii->cpos;
 	short int id;
 	struct button cbut;
 
-	id = ++_gls->but_idmax;
+	id = ++_lascii->but_idmax;
 	if (id > MAX_BUTTONS) return -1; /* Error, too many buttons! */
 
 	cbut.contents = str_create();
@@ -20,19 +20,19 @@ short int button_create(struct spos butpos, char *sarr,
 	str_append(cbut.contents, sarr, strlen(sarr));
 	cbut.action = NULL;
 
-	__vector_pushback(_gls->buttons, &cbut);
+	__vector_pushback(_lascii->buttons, &cbut);
 	curs_mov(orig_cpos);
 	return id;
 }
 
 void button_bind(short int id, void_fnptr action)
 {
-	vector_getptr(_gls->buttons, id - 1, struct button)->action = action;
+	vector_getptr(_lascii->buttons, id - 1, struct button)->action = action;
 	return;
 }
 
 void button_call(short int id)
 {
-	vector_get(_gls->buttons, id - 1, struct button).action();
+	vector_get(_lascii->buttons, id - 1, struct button).action();
 	return;
 }
