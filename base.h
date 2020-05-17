@@ -51,7 +51,7 @@ struct libascii_stat {
 };
 
 /* Declaring globlal variables */
-struct libascii_stat *_glob_lascii_stat;
+extern struct libascii_stat *_glob_lascii_stat;
 /* Make this less of a pain */
 #define _gls _glob_lascii_stat
 #define NEWLINE '\r'
