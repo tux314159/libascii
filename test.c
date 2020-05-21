@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "api.h"
 
-short int c1, c2, c3, o1;
+short int o1;
 char *speeches[3] = {"Hi!", "Bye!", "No."};
 
 int main(void)
@@ -63,6 +63,8 @@ get_button_choice: ;;
 	curs_vis();
 	paintscreen();
 	object_del(o1);
+	for (int i = 0; i < 3; i++)
+		button_del(1);
 	endraw();
 	str_del(t);
 	return 0;

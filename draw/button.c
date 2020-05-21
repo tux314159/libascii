@@ -10,7 +10,6 @@ short int button_create(struct spos butpos, char *sarr,
 	struct button cbut;
 
 	id = ++_lascii->but_idmax;
-	if (id > MAX_BUTTONS) return -1; /* Error, too many buttons! */
 
 	cbut.contents = str_create();
 	cbut.id = id;
@@ -23,6 +22,12 @@ short int button_create(struct spos butpos, char *sarr,
 	__vector_pushback(_lascii->buttons, &cbut);
 	curs_mov(orig_cpos);
 	return id;
+}
+
+void button_del(short int id)
+{
+	vector_erase(_lascii->buttons, id - 1);
+	return;
 }
 
 void button_bind(short int id, void_fnptr action)
