@@ -6,18 +6,18 @@ AR = ar rcs $@
 .PHONY : all
 
 all : test maze
-	@echo -e "\033[0;31mRun this:  export LD_LIBRARY_PATH=\$${LD_LIBRARY_PATH}:$$(pwd)\033[0m"
+	@echo "\033[0;31mRun this:  export LD_LIBRARY_PATH=\$${LD_LIBRARY_PATH}:$$(pwd)\033[0m"
 
 
 dynamic : libascii.so
 
 static : libascii.a
 
-test : test.c libascii.so libmds/src/libmds.so
-	$(CC) test.c -L. -lascii -Llibmds/src/ -lmds
+test : test.c libascii.so libmds/libmds.so
+	$(CC) test.c -L. -lascii -Llibmds/ -lmds
 
-maze : maze.c libascii.so libmds/src/libmds.so
-	$(CC) maze.c -L. -lascii -Llibmds/src/ -lmds
+maze : maze.c libascii.so libmds/libmds.so
+	$(CC) maze.c -L. -lascii -Llibmds/ -lmds
 
 libascii.a : globals.c init.o basic.o draw/button.o objectsys/object.o
 	$(AR) $^
@@ -25,11 +25,11 @@ libascii.a : globals.c init.o basic.o draw/button.o objectsys/object.o
 libascii.so : globals.c init.o basic.o draw/button.o objectsys/object.o
 	$(CC) -shared -fPIC $^
 
-libmds/src/libmds.so : FORCE
-	$(MAKE) -C libmds/src/
+libmds/libmds.so : FORCE
+	$(MAKE) -C libmds/
 
-libmds/src/libmds.a : FORCE
-	$(MAKE) -C libmds/src/
+libmds/libmds.a : FORCE
+	$(MAKE) -C libmds/
 
 git : FORCE
 	git submodule init
@@ -38,7 +38,7 @@ git : FORCE
 clean : FORCE
 	rm -rf *.o
 	rm -rf */*.o
-	$(MAKE) -C libmds/src/ cleanproper
+	$(MAKE) -C libmds/ cleanproper
 
 cleanproper : clean
 	rm -f test maze *.a *.so

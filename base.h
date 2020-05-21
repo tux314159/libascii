@@ -10,7 +10,7 @@
 #ifndef INC_MACROS
 #include "macros.h"
 #endif
-#include "libmds/src/libmds.h"
+#include "libmds/libmds.h"
 
 /* Macros and typedefs */
 #define MAX_BUTTONS 50
