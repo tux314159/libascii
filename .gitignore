@@ -1,6 +1,7 @@
 *.o
 *.so
 *.a
+*.o
 .worktrees/
 test
 test_static

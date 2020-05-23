@@ -1,4 +1,4 @@
-#include "draw.h"
+#include "widgets.h"
 short int button_create(struct spos butpos, char *sarr,
 	size_t arrlen, short int w, short int h)
 {

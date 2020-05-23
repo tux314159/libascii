@@ -19,10 +19,10 @@ test : test.c libascii.so libmds/libmds.so
 maze : maze.c libascii.so libmds/libmds.so
 	$(CC) maze.c -L. -lascii -Llibmds/ -lmds
 
-libascii.a : globals.c init.o basic.o draw/button.o objectsys/object.o
+libascii.a : globals.c init.o basic.o widgets/button.o objectsys/object.o
 	$(AR) $^
 
-libascii.so : globals.c init.o basic.o draw/button.o objectsys/object.o
+libascii.so : globals.c init.o basic.o widgets/button.o objectsys/object.o
 	$(CC) -shared -fPIC $^
 
 libmds/libmds.so : FORCE
