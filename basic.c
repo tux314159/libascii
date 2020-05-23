@@ -1,5 +1,13 @@
 #include "basic.h"
 
+static inline bool chkspos(struct spos in)
+{
+	if (in.r <= 0) return false;
+	if (in.r > _lascii->ws.ws_row) return false;
+	if (in.c <= 0) return false;
+	if (in.c > _lascii->ws.ws_col) return false;
+	return true;
+}
 void buf_putstr(char *str)
 {
 	str_append(_lascii->abuf, str, strlen(str));
@@ -8,6 +16,7 @@ void buf_putstr(char *str)
 
 void curs_mov(struct spos newpos)
 {
+	if (chkspos(newpos) == false) return;
 	char t[12] = "\0\0\0\0\0\0\0\0\0\0\0";
 	sprintf(t, "\x1b[%d;%dH", newpos.r, newpos.c);
 	str_append(_lascii->abuf, t, strlen(t));
