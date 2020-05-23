@@ -6,40 +6,54 @@
 #define CURR curr-1 /* because screen is 1-indexed but the array is 0-indexed */
 #define CURC curc-1 /* ditto */
 
-char map[200][200];
-char scan;
-short int curr = 6, curc = 6;
-
 int main(int argc, char **argv)
 {
+	char map[200][200];
+	char scan;
+	short int curr, curc;
+	char *wall_chars = NULL;
+	size_t wall_chars_n = 0;
+	char goal;
+
 	if (argc != 2) {
-		printf("Please pass the map filename as the first and only argument.\n");
+		fprintf(stderr, "Usage: %s <mapfile>\n", argv[0]);
 		exit(1);
 	}
-	FILE *dahmap = fopen(argv[1], "r");
+	FILE *mapfile = fopen(argv[1], "r");
 	perror("Opening map file");
 	if (errno != 0)
 		exit(2);
 
+	/* Read the map */
+	{
+		getline(&wall_chars, &wall_chars_n, mapfile);
+		wall_chars[strlen(wall_chars)-1] = '\0'; /* strip newline */
+		goal = fgetc(mapfile);
+		fgetc(mapfile); /* skip the next newline */
+		curr = fgetc(mapfile) - '0';
+		fgetc(mapfile); /* skip the next newline */
+		curc = fgetc(mapfile) - '0';
+		fgetc(mapfile); /* skip the next newline */
+
+		char t = '\0';
+		int r = 0, c = 0;
+		while (t != EOF) {
+			t = fgetc(mapfile);
+			if (t == '\n') {
+				r++;
+				c = 0;
+				continue;
+			}
+			map[r][c] = t;
+			c++;
+		}
+		fclose(mapfile);
+	}
+
 	libascii_init();
+	object_create('@', MKSPOS(curr, curc));
 	time_t starttime = time(NULL);
 	int won = 0;
-
-	object_create('@', MKSPOS(curr, curc));
-	char t = '\0';
-	int i = 0;
-	int j = 0;
-	while (t != EOF) {
-		t = fgetc(dahmap);
-		if (t == '\n') {
-			i++;
-			j = 0;
-			continue;
-		}
-		map[i][j] = t;
-		j++;
-	}
-	fclose(dahmap);
 
 	for (int i = 0; i < getwinrows(); i++) {
 		for (int j = 0; j < getwincols(); j++) {
@@ -56,29 +70,29 @@ int main(int argc, char **argv)
 		buf_putstr(char2str(' '));
 		switch (scan) {
 			case 'h':
-                                if (map[CURR][CURC-1] != '+')
+                                if (strchr(wall_chars, map[CURR][CURC-1]) == NULL)
 					  curc -= 1;
-				  break;
+				break;
 			case 'j':
-                                  if (map[CURR+1][CURC] != '+')
-					  curr += 1;
-				  break;
+				if (strchr(wall_chars, map[CURR+1][CURC]) == NULL)
+					curr += 1;
+				break;
 			case 'k':
-                                  if (map[CURR-1][CURC] != '+')
-					  curr -= 1;
-				  break;
+				if (strchr(wall_chars, map[CURR-1][CURC]) == NULL)
+					curr -= 1;
+				break;
 			case 'l':
-                                  if (map[CURR][CURC+1] != '+')
-					  curc += 1;
-				  break;
+				if (strchr(wall_chars, map[CURR][CURC+1]) == NULL)
+					curc += 1;
+				break;
 			default:
-				  break;
+				break;
 		}
 		object_mov(1, MKSPOS(curr, curc));
 		curs_mov(MKSPOS(curr, curc));
 		paintscreen();
 
-		if (map[CURR][CURC] == '#') {
+		if (map[CURR][CURC] == goal) {
 			won = 1;
 			break;
 		}
@@ -99,6 +113,6 @@ int main(int argc, char **argv)
 		paintscreen();
 		scankey();
 	}
-	paintscreen();
 	libascii_exit();
+	free(wall_chars);
 }
