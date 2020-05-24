@@ -5,7 +5,6 @@ short int button_create(struct spos butpos, char *sarr,
 	w += 2;
 	h += 1;
 
-	struct spos orig_cpos = _lascii->cpos;
 	short int id;
 	struct button cbut;
 
@@ -20,7 +19,6 @@ short int button_create(struct spos butpos, char *sarr,
 	cbut.action = NULL;
 
 	__vector_pushback(_lascii->buttons, &cbut);
-	curs_mov(orig_cpos);
 	return id;
 }
 
