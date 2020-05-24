@@ -12,9 +12,7 @@ int main(void)
 	/* Page 1 */
 	curs_invis();
 	o1 = object_create('@', MKSPOS(5, 1));
-	curs_mov(MKSPOS(getwinrows() / 2, getwincols() / 2 - 5));
-	buf_putstr("libascii v0");
-	curs_mov(MKSPOS(getwinrows(), 0));
+	curs_mov(MKSPOS(getwinrows(), 1));
 	buf_putstr("Press a key: ");
 	paintscreen();
 	char rec = scankey();
@@ -29,9 +27,8 @@ int main(void)
 	clearscreen();
 	/* Page 2 */
 	object_mov(o1, MKSPOS(5, 2));
-	curs_mov(MKSPOS(getwinrows() / 2, getwincols() / 2 - 5));
-	buf_putstr("libascii v0");
-	curs_mov(MKSPOS(getwinrows(), 0)); buf_putstr("Type something and press enter: ");
+	curs_mov(MKSPOS(getwinrows(), 1));
+	buf_putstr("Type something and press enter: ");
 	curs_mov(MKSPOS(getwinrows(), strlen("Type something and press enter: ") + 1));
 	curs_vis();
 	paintscreen();
