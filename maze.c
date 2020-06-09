@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv)
 {
-	char map[200][200];
+	char map[200][250];
 	char scan;
 	short int curr, curc;
 	char *wall_chars = NULL;
