@@ -6,4 +6,4 @@
  */
 
 #include "base.h"
-struct libascii_stat *_glob_lascii_stat;
+struct libascii_stat *_lascii;
