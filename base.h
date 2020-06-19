@@ -39,6 +39,11 @@ struct object {
 	struct spos pos;
 };
 
+struct gridtest {
+	bool edgep;
+	char contents;
+};
+
 struct libascii_stat {
 	struct spos cpos;
 	struct termios init_termios;
