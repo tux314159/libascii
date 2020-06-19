@@ -3,9 +3,15 @@ CC = gcc $(CFLAGS)
 OCC = $(CC) -c
 AR = ar rcs $@
 
-.PHONY : all
+# FILES
+BASE = globals.c init.o basic.o
+WIDGETS = widgets/button.o widgets/grid.o
+OBJECTSYS = objectsys/object.o
+LIBFILES = $(BASE) $(WIDGETS) $(OBJECTSYS)
 
-all : test maze
+.PHONY : all clean cleanproper git dynamic static
+
+all : test maze dynamic
 	@echo "\033[0;31mRun this:  export LD_LIBRARY_PATH=\$${LD_LIBRARY_PATH}:$$(pwd)\033[0m"
 
 
@@ -19,10 +25,10 @@ test : test.c libascii.so libmds/libmds.so
 maze : maze.c libascii.so libmds/libmds.so
 	$(CC) maze.c -L. -lascii -Llibmds/ -lmds
 
-libascii.a : globals.c init.o basic.o widgets/button.o objectsys/object.o
+libascii.a : $(LIBFILES)
 	$(AR) $^
 
-libascii.so : globals.c init.o basic.o widgets/button.o objectsys/object.o
+libascii.so : $(LIBFILES)
 	$(CC) -shared -fPIC $^
 
 libmds/libmds.so : FORCE
