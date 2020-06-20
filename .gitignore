@@ -8,3 +8,4 @@ test_static
 maze
 maze_static
 tags
+.ccls-cache
