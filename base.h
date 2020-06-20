@@ -54,8 +54,7 @@ struct libascii_stat {
 	int but_idmax; /* Most recent button id */
 	int obj_idmax; /* Most recent object id */
 	struct vector *objects;
-	bool gridp; /* Is there already an initialised grid? */
-	short int **grid; /* The grid itself; should be NULL if not gridp */
+	short int **grid; /* The grid itself */
 };
 
 /* Declaring globlal variables */

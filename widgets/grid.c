@@ -3,7 +3,7 @@
 
 bool grid_init(void)
 {
-	if (_lascii->gridp)
+	if (_lascii->grid)
 		return false;
 
 	/* Not using vectors here because we don't need resizing or
@@ -13,13 +13,12 @@ bool grid_init(void)
 	for (int i = 0; i < _lascii->ws.ws_row; i++)
 		_lascii->grid[i] = calloc(_lascii->ws.ws_col, sizeof(short int));
 
-	_lascii->gridp = true;
 	return true;
 }
 
 bool grid_deinit(void)
 {
-	if (!_lascii->gridp)
+	if (!_lascii->grid)
 		return false;
 
 	for (int i = 0; i < _lascii->ws.ws_row; i++)
