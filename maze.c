@@ -51,6 +51,7 @@ int main(int argc, char **argv)
 	}
 
 	libascii_init();
+	grid_init();
 	object_create('@', MKSPOS(curr, curc));
 	time_t starttime = time(NULL);
 	int won = 0;
@@ -113,6 +114,7 @@ int main(int argc, char **argv)
 		paintscreen();
 		scankey();
 	}
+	grid_deinit();
 	libascii_exit();
 	free(wall_chars);
 }
