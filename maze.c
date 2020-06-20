@@ -15,6 +15,8 @@ int main(int argc, char **argv)
 	size_t wall_chars_n = 0;
 	char goal;
 
+	memset(map, '\0', sizeof(char) * 200 * 250);
+
 	if (argc != 2) {
 		fprintf(stderr, "Usage: %s <mapfile>\n", argv[0]);
 		exit(1);
@@ -37,8 +39,7 @@ int main(int argc, char **argv)
 
 		char t = '\0';
 		int r = 0, c = 0;
-		while (t != EOF) {
-			t = fgetc(mapfile);
+		while ((t = fgetc(mapfile)) != EOF) {
 			if (t == '\n') {
 				r++;
 				c = 0;
