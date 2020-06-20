@@ -13,10 +13,13 @@ short int object_create(char rep, struct spos pos)
 void object_del(short int id)
 {
 	struct spos objpos = vector_getptr(_lascii->objects, id - 1, struct object)->pos;
-	_lascii->grid[objpos.r][objpos.c] = 0;
+	_lascii->grid[objpos.r][objpos.c] = -1;
 	vector_erase(_lascii->objects, id - 1);
-	for (int i = id; i < _lascii-> obj_idmax - 1; i++)
-		vector_getptr(_lascii->objects, i, struct object)->id -= 1;
+	struct object *cobj;
+	for (int i = id; i < _lascii-> obj_idmax - 1; i++) {
+		cobj = vector_getptr(_lascii->objects, i, struct object);
+		_lascii->grid[cobj->pos.r][cobj->pos.c] = --cobj->id;
+	}
 	_lascii->obj_idmax -= 1;
 	return;
 }
@@ -25,7 +28,7 @@ void object_mov(short int id, struct spos newpos)
 {
 	struct object *cobj = vector_getptr(_lascii->objects, id - 1, struct object);
 	cobj->pos = newpos;
-	_lascii->grid[cobj->pos.r][cobj->pos.c] = 0;
+	_lascii->grid[cobj->pos.r][cobj->pos.c] = -1;
 	_lascii->grid[newpos.r][newpos.c] = cobj->id;
 	return;
 }
@@ -38,7 +41,8 @@ struct object object_getattr(short int id)
 struct gridtest object_checkcell(short int id, enum DIR dir)
 {
 	/* If it's at a wall, we return {true, 0}
-	 * else we return {false, WHATEVER}
+	 * else we return {false, -1} if it's empty and
+	 * {false, <contents of that cell>} if it's not.
 	 * EXCEPT if dir == ALL, then we return either
 	 * {false, 0} for ALL CLEAR and {false, 1} for
 	 * not ALL CLEAR

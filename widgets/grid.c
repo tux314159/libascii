@@ -10,8 +10,10 @@ bool grid_init(void)
 	 * anything like that
 	 */
 	_lascii->grid = malloc(_lascii->ws.ws_row * sizeof(short int*));
-	for (int i = 0; i < _lascii->ws.ws_row; i++)
-		_lascii->grid[i] = calloc(_lascii->ws.ws_col, sizeof(short int));
+	for (int i = 0; i < _lascii->ws.ws_row; i++) {
+		_lascii->grid[i] = malloc(_lascii->ws.ws_col * sizeof(short int));
+		memset(_lascii->grid[i], -1, _lascii->ws.ws_col * sizeof(short int));
+	}
 
 	return true;
 }
