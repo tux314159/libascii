@@ -32,9 +32,7 @@ int main(int argc, char **argv)
 		wall_chars[strlen(wall_chars)-1] = '\0'; /* strip newline */
 		goal = fgetc(mapfile);
 		fgetc(mapfile); /* skip the next newline */
-		curr = fgetc(mapfile) - '0';
-		fgetc(mapfile); /* skip the next newline */
-		curc = fgetc(mapfile) - '0';
+		fscanf(mapfile, "%hd%hd", &curr, &curc);
 		fgetc(mapfile); /* skip the next newline */
 
 		char t = '\0';
