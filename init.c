@@ -6,7 +6,6 @@ void libascii_init(void)
 	_lascii = malloc(sizeof(struct libascii_stat));
 	_lascii->abuf = str_create();
 	_lascii->echo = 0;
-	_lascii->gridp = false;
 	/* Buttons */
 	_lascii->buttons = vector_create(sizeof(struct button));
 	_lascii->but_idmax = 0;
