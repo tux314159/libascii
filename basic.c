@@ -8,6 +8,7 @@ static inline bool chkspos(struct spos in)
 	if (in.c > _lascii->ws.ws_col) return false;
 	return true;
 }
+
 void buf_putstr(char *str)
 {
 	str_append(_lascii->abuf, str, strlen(str));
