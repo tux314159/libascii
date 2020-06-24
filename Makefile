@@ -11,7 +11,7 @@ LIBFILES = $(BASE) $(WIDGETS) $(OBJECTSYS)
 
 .PHONY : all clean cleanproper git dynamic static
 
-all : test maze dynamic
+all : test maze dynamic static
 	@echo "\033[0;31mRun this:  export LD_LIBRARY_PATH=\$${LD_LIBRARY_PATH}:$$(pwd)\033[0m"
 
 
@@ -19,11 +19,11 @@ dynamic : libascii.so
 
 static : libascii.a
 
-test : test.c libascii.so libmds/libmds.so
-	$(CC) test.c -L. -lascii -Llibmds/ -lmds
+test : test.c libascii.a libmds/libmds.a globals.c
+	$(CC) $^
 
-maze : maze.c libascii.so libmds/libmds.so
-	$(CC) maze.c -L. -lascii -Llibmds/ -lmds
+maze : maze.c libascii.a libmds/libmds.a globals.c
+	$(CC) $^
 
 libascii.a : $(LIBFILES)
 	$(AR) $^
