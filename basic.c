@@ -18,7 +18,7 @@ void buf_putstr(char *str)
 void curs_mov(struct spos newpos)
 {
 	if (chkspos(newpos) == false) return;
-	char t[12] = "\0\0\0\0\0\0\0\0\0\0\0";
+	char t[16] = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 	sprintf(t, "\x1b[%d;%dH", newpos.r, newpos.c);
 	str_append(_lascii->abuf, t, strlen(t));
 	_lascii->cpos = newpos;

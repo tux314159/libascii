@@ -9,7 +9,7 @@
 int main(int argc, char **argv)
 {
 	char map[200][250];
-	char scan;
+	char scan = '\0';
 	short int curr, curc;
 	char *wall_chars = NULL;
 	size_t wall_chars_n = 0;
