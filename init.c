@@ -14,6 +14,7 @@ void libascii_init(void)
 	_lascii->obj_idmax = 0;
 	/* Grid */
 	_lascii->objgrid = NULL;
+	_lascii->txtgrid = NULL;
 	/* Use alternate buffer */
 	write(STDOUT, "\x1b[?1049h", 8);
 	/* Get window size */

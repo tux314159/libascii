@@ -2,7 +2,7 @@
 #    include "grid.h"
 #endif
 
-bool obj_grid_init(void)
+bool txt_grid_init(void)
 {
 	if (_lascii->objgrid)
 		return false;
@@ -10,23 +10,19 @@ bool obj_grid_init(void)
 	_lascii->objgrid = malloc(_lascii->ws.ws_row * sizeof(struct vector**));
 	for (int i = 0; i < _lascii->ws.ws_row; i++) {
 		_lascii->objgrid[i] = malloc(_lascii->ws.ws_col * sizeof(struct vector*));
-		for (int j = 0; j < _lascii->ws.ws_col; j++)
-			_lascii->objgrid[i][j] = vector_create(sizeof(struct object));
+		memset(_lascii->txtgrid, 0, _lascii->ws.ws_col * sizeof(char));
 	}
 
 	return true;
 }
 
-bool obj_grid_deinit(void)
+bool txt_grid_deinit(void)
 {
 	if (!_lascii->objgrid)
 		return false;
 
-	for (int i = 0; i < _lascii->ws.ws_row; i++) {
-		for (int j = 0; j < _lascii->ws.ws_col; j++)
-			vector_del(_lascii->objgrid[i][j]);
+	for (int i = 0; i < _lascii->ws.ws_row; i++)
 		free(_lascii->objgrid[i]);
-	}
-	free(_lascii->objgrid);
+	free(_lascii->txtgrid);
 	return true;
 }

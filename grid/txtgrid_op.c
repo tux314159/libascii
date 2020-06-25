@@ -2,24 +2,21 @@
 #    include "grid.h"
 #endif
 
-/* Where the actual objects are stored */
-
-struct object *obj_grid_cell_add(struct object obj, struct spos pos)
+void txt_grid_cell_add(char in, struct spos pos)
 {
-	return (struct object*)__vector_pushback(_lascii->objgrid[pos.r][pos.c], &obj);
+	_lascii->txtgrid[pos.r - 1][pos.c - 1] = in;
+	return;
 }
 
-struct obj_gridtest obj_grid_cell_check(short int id, enum DIR dir)
+struct txt_gridtest txt_grid_cell_check(short int id, enum DIR dir)
 {
 	/* If it's at an edge, we return {true, NULL} else we return {false,
-	 * <pointer to the vector in that cell>} if it's not.
-	 *
-	 * DO NOT MODIFY THE VECTOR!
+	 * <contents of the cell>} if it's not.
 	 */
 	struct object *cobj = vector_getptr(_lascii->objects, id - 1, struct object);
-	struct obj_gridtest ret = {false, NULL};
+	struct txt_gridtest ret = {false, '\0'};
 
-#define GRIDCELL_CONT(offr, offc) (_lascii->objgrid[cobj->pos.r + offr][cobj->pos.c + offc])
+#define GRIDCELL_CONT(offr, offc) (_lascii->txtgrid[cobj->pos.r + offr][cobj->pos.c + offc])
 	switch (dir) {
 	case N:
 		if (cobj->pos.r == 1)
