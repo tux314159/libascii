@@ -13,8 +13,6 @@ LIBFILES = $(BASE) $(WIDGETS) $(GRID) $(OBJECTSYS)
 .PHONY : all clean cleanproper git dynamic static
 
 all : test maze dynamic static
-	@echo "\033[0;31mRun this:  export LD_LIBRARY_PATH=\$${LD_LIBRARY_PATH}:$$(pwd)\033[0m"
-
 
 dynamic : libascii.so
 
