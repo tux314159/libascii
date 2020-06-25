@@ -44,11 +44,6 @@ struct obj_gridtest {
 	struct vector *contents;
 };
 
-struct txt_gridtest {
-	bool edgep;
-	char contents;
-};
-
 struct libascii_stat {
 	struct spos cpos;
 	struct termios init_termios;
@@ -67,4 +62,4 @@ struct libascii_stat {
 extern struct libascii_stat *_lascii;
 #define NEWLINE '\r'
 #define CTRL_KEY(k) ((k) & 0x1f)
-#define MKSPOS(x, y) ((struct spos){(x), (y)})
+#define MKSPOS(r, c) ((struct spos){(r), (c)})

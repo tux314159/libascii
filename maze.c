@@ -8,14 +8,11 @@
 
 int main(int argc, char **argv)
 {
-	char map[200][250];
 	char scan = '\0';
 	short int curr, curc;
 	char *wall_chars = NULL;
 	size_t wall_chars_n = 0;
 	char goal;
-
-	memset(map, '\0', sizeof(char) * 200 * 250);
 
 	if (argc != 2) {
 		fprintf(stderr, "Usage: %s <mapfile>\n", argv[0]);
@@ -26,6 +23,9 @@ int main(int argc, char **argv)
 	if (errno != 0)
 		exit(2);
 
+	libascii_init();
+	obj_grid_init();
+	txt_grid_init();
 	/* Read the map */
 	{
 		getline(&wall_chars, &wall_chars_n, mapfile);
@@ -43,22 +43,20 @@ int main(int argc, char **argv)
 				c = 0;
 				continue;
 			}
-			map[r][c] = t;
+			txt_grid_cell_add(t, MKSPOS(r + 1, c + 1));
 			c++;
 		}
 		fclose(mapfile);
 	}
 
-	libascii_init();
-	obj_grid_init();
 	object_create('@', MKSPOS(curr, curc));
 	time_t starttime = time(NULL);
 	int won = 0;
 
-	for (int i = 0; i < getwinrows(); i++) {
-		for (int j = 0; j < getwincols(); j++) {
-			curs_mov(MKSPOS(i+1, j+1));
-			buf_putstr(char2str(map[i][j]));
+	for (int i = 1; i <= getwinrows(); i++) {
+		for (int j = 1; j <= getwincols(); j++) {
+			curs_mov(MKSPOS(i, j));
+			buf_putstr(char2str(txt_grid_getcell(MKSPOS(i, j))));
 		}
 	}
 	curs_mov(MKSPOS(curr, curc));
@@ -70,19 +68,19 @@ int main(int argc, char **argv)
 		buf_putstr(char2str(' '));
 		switch (scan) {
 		case 'h':
-			if (strchr(wall_chars, map[CURR][CURC-1]) == NULL)
+			if (strchr(wall_chars, txt_grid_getcell(MKSPOS(curr, curc - 1))) == NULL)
 				  curc -= 1;
 			break;
 		case 'j':
-			if (strchr(wall_chars, map[CURR+1][CURC]) == NULL)
+			if (strchr(wall_chars, txt_grid_getcell(MKSPOS(curr + 1, curc))) == NULL)
 				curr += 1;
 			break;
 		case 'k':
-			if (strchr(wall_chars, map[CURR-1][CURC]) == NULL)
+			if (strchr(wall_chars, txt_grid_getcell(MKSPOS(curr - 1, curc))) == NULL)
 				curr -= 1;
 			break;
 		case 'l':
-			if (strchr(wall_chars, map[CURR][CURC+1]) == NULL)
+			if (strchr(wall_chars, txt_grid_getcell(MKSPOS(curr, curc + 1))) == NULL)
 				curc += 1;
 			break;
 		default:
@@ -92,7 +90,7 @@ int main(int argc, char **argv)
 		curs_mov(MKSPOS(curr, curc));
 		paintscreen();
 
-		if (map[CURR][CURC] == goal) {
+		if (txt_grid_getcell(MKSPOS(curr, curc)) == goal) {
 			won = 1;
 			break;
 		}
@@ -113,6 +111,7 @@ int main(int argc, char **argv)
 		paintscreen();
 		scankey();
 	}
+	txt_grid_deinit();
 	obj_grid_deinit();
 	libascii_exit();
 	free(wall_chars);
