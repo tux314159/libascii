@@ -1,5 +1,5 @@
 WARNINGS = -W -Wall -Wextra -Wpedantic -pedantic -Wpointer-arith
-DEBUG =
+DEBUG = -g
 OPTIM = -O3
 CFLAGS = $(WARNINGS) $(DEBUG) $(OPTIM) -fPIC -o $@
 CC = gcc
