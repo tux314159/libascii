@@ -1,5 +1,8 @@
-CFLAGS = -g -Wall -Wextra -fPIC -o $@
-CC = gcc $(CFLAGS)
+WARNINGS = -W -Wall -Wextra -Wpedantic -pedantic -Wpointer-arith
+DEBUG =
+OPTIM = -O3
+CFLAGS = $(WARNINGS) $(DEBUG) $(OPTIM) -fPIC -o $@
+CC = gcc
 OCC = $(CC) -c
 AR = ar rcs $@
 
@@ -8,6 +11,7 @@ BASE = globals.c init.o basic.o
 WIDGETS = widgets/button.o
 GRID = grid/objgrid_init.o grid/objgrid_op.o grid/txtgrid_init.c grid/txtgrid_op.o
 OBJECTSYS = objectsys/object.o
+
 LIBFILES = $(BASE) $(WIDGETS) $(GRID) $(OBJECTSYS)
 
 .PHONY : all clean cleanproper git dynamic static
@@ -19,22 +23,25 @@ dynamic : libascii.so
 static : libascii.a
 
 test : test.c libascii.a libmds/libmds.a globals.c
-	$(CC) $^
+	$(CC) $(CFLAGS) $^
 
 maze : maze.c libascii.a libmds/libmds.a globals.c
-	$(CC) $^
+	$(CC) $(CFLAGS) $^
 
 libascii.a : $(LIBFILES)
 	$(AR) $^
 
 libascii.so : $(LIBFILES)
-	$(CC) -shared -fPIC $^
+	$(CC) $(CFLAGS) -shared -fPIC $^
 
 libmds/libmds.a : FORCE
 	$(MAKE) -C libmds/
 
 libmds/libmds.so : FORCE
 	$(MAKE) -C libmds/
+
+%.o : %.c %.h
+	$(OCC) $(CFLAGS) $<
 
 git : FORCE
 	git submodule init
