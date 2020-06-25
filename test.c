@@ -49,7 +49,7 @@ int main(void)
 	object_mov(o1, MKSPOS(5, 3));
 	buf_putstr("Pick something to say!");
 	for (int i = 0; i < 3; i++)
-		button_create(MKSPOS((i+1)*3, 2), speeches[i], 1, strlen(speeches[i]), 1);
+		button_create(MKSPOS((i+1)*3, 2), speeches[i], 1, 1);
 
 	paintscreen();
 get_button_choice: ;;

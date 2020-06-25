@@ -1,6 +1,5 @@
 #include "widgets.h"
-short int button_create(struct spos butpos, char *sarr,
-	size_t arrlen, short int w, short int h)
+short int button_create(struct spos butpos, char *sarr, short int w, short int h)
 {
 	w += 2;
 	h += 1;
