@@ -4,12 +4,12 @@
 
 bool txt_grid_init(void)
 {
-	if (_lascii->objgrid)
+	if (_lascii->txtgrid)
 		return false;
 
-	_lascii->objgrid = malloc(_lascii->ws.ws_row * sizeof(struct vector**));
+	_lascii->txtgrid = malloc(_lascii->ws.ws_row * sizeof(struct vector**));
 	for (int i = 0; i < _lascii->ws.ws_row; i++) {
-		_lascii->objgrid[i] = malloc(_lascii->ws.ws_col * sizeof(struct vector*));
+		_lascii->txtgrid[i] = malloc(_lascii->ws.ws_col * sizeof(struct vector*));
 		memset(_lascii->txtgrid, 0, _lascii->ws.ws_col * sizeof(char));
 	}
 
@@ -18,11 +18,11 @@ bool txt_grid_init(void)
 
 bool txt_grid_deinit(void)
 {
-	if (!_lascii->objgrid)
+	if (!_lascii->txtgrid)
 		return false;
 
 	for (int i = 0; i < _lascii->ws.ws_row; i++)
-		free(_lascii->objgrid[i]);
+		free(_lascii->txtgrid[i]);
 	free(_lascii->txtgrid);
 	return true;
 }
