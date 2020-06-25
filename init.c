@@ -10,10 +10,10 @@ void libascii_init(void)
 	_lascii->buttons = vector_create(sizeof(struct button));
 	_lascii->but_idmax = 0;
 	/* Objects */
-	_lascii->objects = vector_create(sizeof(struct object));
+	_lascii->objects = vector_create(sizeof(struct object*));
 	_lascii->obj_idmax = 0;
 	/* Grid */
-	_lascii->grid = NULL;
+	_lascii->objgrid = NULL;
 	/* Use alternate buffer */
 	write(STDOUT, "\x1b[?1049h", 8);
 	/* Get window size */

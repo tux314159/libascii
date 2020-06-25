@@ -1,9 +1,12 @@
-#ifndef INC_BASE
-#include "../base.h"
-#endif
+#include <stdlib.h>
+#include <unistd.h>
 
-/* Directions */
-enum DIR {N, NE, E, SE, S, SW, W, NW, ALL};
+#ifndef INC_BASE
+#    include "../base.h"
+#endif
+#ifndef INC_GRID
+#    include "../grid/grid.h"
+#endif
 
 short int object_create(char rep, struct spos pos);
 void object_del(short int id);

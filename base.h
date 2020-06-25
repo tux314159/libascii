@@ -41,7 +41,7 @@ struct object {
 
 struct gridtest {
 	bool edgep;
-	char contents;
+	struct vector *contents;
 };
 
 struct libascii_stat {
@@ -51,10 +51,10 @@ struct libascii_stat {
 	int echo; /* When receiving input, should I echo it on output? */
 	string *abuf;
 	struct vector *buttons;
-	int but_idmax; /* Most recent button id */
-	int obj_idmax; /* Most recent object id */
+	short int but_idmax; /* Most recent button id */
+	short int obj_idmax; /* Most recent object id */
 	struct vector *objects;
-	short int **grid; /* The grid itself */
+	struct vector ***objgrid; /* The grid itself */
 };
 
 /* Declaring globlal variables */
