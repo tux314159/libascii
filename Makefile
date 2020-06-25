@@ -1,13 +1,14 @@
-CFLAGS = -g -Wall -fPIC -o $@
+CFLAGS = -g -Wall -Wextra -fPIC -o $@
 CC = gcc $(CFLAGS)
 OCC = $(CC) -c
 AR = ar rcs $@
 
 # FILES
 BASE = globals.c init.o basic.o
-WIDGETS = widgets/button.o widgets/grid.o
+WIDGETS = widgets/button.o
+GRID = grid/objgrid_init.o grid/objgrid_op.o grid/txtgrid_init.c grid/txtgrid_op.o
 OBJECTSYS = objectsys/object.o
-LIBFILES = $(BASE) $(WIDGETS) $(OBJECTSYS)
+LIBFILES = $(BASE) $(WIDGETS) $(GRID) $(OBJECTSYS)
 
 .PHONY : all clean cleanproper git dynamic static
 
@@ -31,10 +32,10 @@ libascii.a : $(LIBFILES)
 libascii.so : $(LIBFILES)
 	$(CC) -shared -fPIC $^
 
-libmds/libmds.so : FORCE
+libmds/libmds.a : FORCE
 	$(MAKE) -C libmds/
 
-libmds/libmds.a : FORCE
+libmds/libmds.so : FORCE
 	$(MAKE) -C libmds/
 
 git : FORCE

@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 	}
 
 	libascii_init();
-	grid_init();
+	obj_grid_init();
 	object_create('@', MKSPOS(curr, curc));
 	time_t starttime = time(NULL);
 	int won = 0;
@@ -69,24 +69,24 @@ int main(int argc, char **argv)
 		curs_mov(MKSPOS(curr, curc));
 		buf_putstr(char2str(' '));
 		switch (scan) {
-			case 'h':
-                                if (strchr(wall_chars, map[CURR][CURC-1]) == NULL)
-					  curc -= 1;
-				break;
-			case 'j':
-				if (strchr(wall_chars, map[CURR+1][CURC]) == NULL)
-					curr += 1;
-				break;
-			case 'k':
-				if (strchr(wall_chars, map[CURR-1][CURC]) == NULL)
-					curr -= 1;
-				break;
-			case 'l':
-				if (strchr(wall_chars, map[CURR][CURC+1]) == NULL)
-					curc += 1;
-				break;
-			default:
-				break;
+		case 'h':
+			if (strchr(wall_chars, map[CURR][CURC-1]) == NULL)
+				  curc -= 1;
+			break;
+		case 'j':
+			if (strchr(wall_chars, map[CURR+1][CURC]) == NULL)
+				curr += 1;
+			break;
+		case 'k':
+			if (strchr(wall_chars, map[CURR-1][CURC]) == NULL)
+				curr -= 1;
+			break;
+		case 'l':
+			if (strchr(wall_chars, map[CURR][CURC+1]) == NULL)
+				curc += 1;
+			break;
+		default:
+			break;
 		}
 		object_mov(1, MKSPOS(curr, curc));
 		curs_mov(MKSPOS(curr, curc));
@@ -113,7 +113,7 @@ int main(int argc, char **argv)
 		paintscreen();
 		scankey();
 	}
-	grid_deinit();
+	obj_grid_deinit();
 	libascii_exit();
 	free(wall_chars);
 }

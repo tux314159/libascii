@@ -8,7 +8,7 @@ int main(void)
 {
 	startraw();
 	setecho();
-	grid_init();
+	obj_grid_init();
 
 	/* Page 1 */
 	curs_invis();
@@ -49,7 +49,7 @@ int main(void)
 	object_mov(o1, MKSPOS(5, 3));
 	buf_putstr("Pick something to say!");
 	for (int i = 0; i < 3; i++)
-		button_create(MKSPOS((i+1)*3, 2), speeches[i], 1, strlen(speeches[i]), 1);
+		button_create(MKSPOS((i+1)*3, 2), speeches[i], 1, 1);
 
 	paintscreen();
 get_button_choice: ;;
@@ -63,7 +63,7 @@ get_button_choice: ;;
 	object_del(o1);
 	for (int i = 0; i < 3; i++)
 		button_del(1);
-	grid_deinit();
+	obj_grid_deinit();
 	endraw();
 	str_del(t);
 	return 0;

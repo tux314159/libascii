@@ -41,9 +41,9 @@ static void draw_obj(void)
 {
 	struct spos orig_cpos = _lascii->cpos;
 	for (int i = 0; i < _lascii->obj_idmax; i++) {
-		struct object cobj = vector_get(_lascii->objects, i, struct object);
-		curs_mov(cobj.pos);
-		str_append(_lascii->abuf, char2str(cobj.rep), 1);
+		struct object *cobj = vector_get(_lascii->objects, i, struct object*);
+		curs_mov(cobj->pos);
+		str_append(_lascii->abuf, char2str(cobj->rep), 1);
 	}
 	curs_mov(orig_cpos);
 	return;
