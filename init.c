@@ -15,6 +15,9 @@ void libascii_init(void)
 	__lascii->objects = vector_create(sizeof(struct object*));
 	__lascii->obj_idmax = 0;
 
+	/* Get window size */
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &(__lascii->ws));
+
 	/* Grids */
 	__lascii->objgrid = malloc(__lascii->ws.ws_row * sizeof(struct vector**));
 	for (int i = 0; i < __lascii->ws.ws_row; i++) {
@@ -30,9 +33,6 @@ void libascii_init(void)
 
 	/* Use alternate buffer */
 	write(STDOUT, "\x1b[?1049h", 8);
-
-	/* Get window size */
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &(__lascii->ws));
 
 	/* Rows, columns are 1-indexed */
 	__lascii->cpos.r = 1;
