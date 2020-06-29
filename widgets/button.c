@@ -23,6 +23,7 @@ short int button_create(struct spos butpos, char *sarr, short int w, short int h
 
 void button_del(short int id)
 {
+	str_del(vector_getptr(_lascii->buttons, id - 1, struct button)->contents);
 	vector_erase(_lascii->buttons, id - 1);
 	return;
 }
