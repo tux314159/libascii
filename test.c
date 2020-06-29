@@ -6,9 +6,8 @@ char *speeches[3] = {"Hi!", "Bye!", "No."};
 
 int main(void)
 {
-	startraw();
+	libascii_init();
 	setecho();
-	obj_grid_init();
 
 	/* Page 1 */
 	curs_invis();
@@ -63,8 +62,7 @@ get_button_choice: ;;
 	object_del(o1);
 	for (int i = 0; i < 3; i++)
 		button_del(1);
-	obj_grid_deinit();
-	endraw();
+	libascii_exit();
 	str_del(t);
 	return 0;
 }

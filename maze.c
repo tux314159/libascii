@@ -24,8 +24,6 @@ int main(int argc, char **argv)
 		exit(2);
 
 	libascii_init();
-	obj_grid_init();
-	txt_grid_init();
 	/* Read the map */
 	{
 		getline(&wall_chars, &wall_chars_n, mapfile);
@@ -111,8 +109,6 @@ int main(int argc, char **argv)
 		paintscreen();
 		scankey();
 	}
-	txt_grid_deinit();
-	obj_grid_deinit();
 	libascii_exit();
 	free(wall_chars);
 }
