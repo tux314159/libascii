@@ -59,7 +59,7 @@ struct libascii_stat {
 };
 
 /* Declaring globlal variables */
-extern struct libascii_stat *_lascii;
+extern struct libascii_stat *__lascii;
 #define NEWLINE '\r'
 #define CTRL_KEY(k) ((k) & 0x1f)
 #define MKSPOS(r, c) ((struct spos){(r), (c)})

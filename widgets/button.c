@@ -7,7 +7,7 @@ short int button_create(struct spos butpos, char *sarr, short int w, short int h
 	short int id;
 	struct button cbut;
 
-	id = ++_lascii->but_idmax;
+	id = ++__lascii->but_idmax;
 
 	cbut.contents = str_create();
 	cbut.id = id;
@@ -17,25 +17,25 @@ short int button_create(struct spos butpos, char *sarr, short int w, short int h
 	str_append(cbut.contents, sarr, strlen(sarr));
 	cbut.action = NULL;
 
-	__vector_pushback(_lascii->buttons, &cbut);
+	__vector_pushback(__lascii->buttons, &cbut);
 	return id;
 }
 
 void button_del(short int id)
 {
-	str_del(vector_getptr(_lascii->buttons, id - 1, struct button)->contents);
-	vector_erase(_lascii->buttons, id - 1);
+	str_del(vector_getptr(__lascii->buttons, id - 1, struct button)->contents);
+	vector_erase(__lascii->buttons, id - 1);
 	return;
 }
 
 void button_bind(short int id, void_fnptr action)
 {
-	vector_getptr(_lascii->buttons, id - 1, struct button)->action = action;
+	vector_getptr(__lascii->buttons, id - 1, struct button)->action = action;
 	return;
 }
 
 void button_call(short int id)
 {
-	vector_get(_lascii->buttons, id - 1, struct button).action();
+	vector_get(__lascii->buttons, id - 1, struct button).action();
 	return;
 }

@@ -3,45 +3,45 @@
 void libascii_init(void)
 {
 	/* Base */
-	_lascii = malloc(sizeof(struct libascii_stat));
-	_lascii->abuf = str_create();
-	_lascii->echo = 0;
+	__lascii = malloc(sizeof(struct libascii_stat));
+	__lascii->abuf = str_create();
+	__lascii->echo = 0;
 
 	/* Buttons */
-	_lascii->buttons = vector_create(sizeof(struct button));
-	_lascii->but_idmax = 0;
+	__lascii->buttons = vector_create(sizeof(struct button));
+	__lascii->but_idmax = 0;
 
 	/* Objects */
-	_lascii->objects = vector_create(sizeof(struct object*));
-	_lascii->obj_idmax = 0;
+	__lascii->objects = vector_create(sizeof(struct object*));
+	__lascii->obj_idmax = 0;
 
 	/* Grids */
-	_lascii->objgrid = malloc(_lascii->ws.ws_row * sizeof(struct vector**));
-	for (int i = 0; i < _lascii->ws.ws_row; i++) {
-		_lascii->objgrid[i] = malloc(_lascii->ws.ws_col * sizeof(struct vector*));
-		for (int j = 0; j < _lascii->ws.ws_col; j++)
-			_lascii->objgrid[i][j] = vector_create(sizeof(struct object));
+	__lascii->objgrid = malloc(__lascii->ws.ws_row * sizeof(struct vector**));
+	for (int i = 0; i < __lascii->ws.ws_row; i++) {
+		__lascii->objgrid[i] = malloc(__lascii->ws.ws_col * sizeof(struct vector*));
+		for (int j = 0; j < __lascii->ws.ws_col; j++)
+			__lascii->objgrid[i][j] = vector_create(sizeof(struct object));
 
 	}
-	_lascii->txtgrid = malloc(_lascii->ws.ws_row * sizeof(char*));
-	for (int i = 0; i < _lascii->ws.ws_row; i++) {
-		_lascii->txtgrid[i] = calloc(_lascii->ws.ws_col, sizeof(char));
+	__lascii->txtgrid = malloc(__lascii->ws.ws_row * sizeof(char*));
+	for (int i = 0; i < __lascii->ws.ws_row; i++) {
+		__lascii->txtgrid[i] = calloc(__lascii->ws.ws_col, sizeof(char));
 	}
 
 	/* Use alternate buffer */
 	write(STDOUT, "\x1b[?1049h", 8);
 
 	/* Get window size */
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &(_lascii->ws));
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &(__lascii->ws));
 
 	/* Rows, columns are 1-indexed */
-	_lascii->cpos.r = 1;
-	_lascii->cpos.c = 1;
+	__lascii->cpos.r = 1;
+	__lascii->cpos.c = 1;
 
 	/* Turn on 'raw mode' */
 	struct termios orig, raw;
 	tcgetattr(STDIN_FILENO, &orig);
-	_lascii->init_termios = orig;
+	__lascii->init_termios = orig;
 	tcgetattr(STDIN_FILENO, &raw);
 	raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
 	raw.c_oflag &= ~(OPOST);
@@ -56,23 +56,23 @@ void libascii_exit(void)
 	/* Go back */
 	write(STDOUT, "\x1b[?1049l", 8);
 	/* Restore 'cooked' mode */
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &(_lascii->init_termios));
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &(__lascii->init_termios));
 	/* Free memory */
-	str_del(_lascii->abuf);
-	vector_del(_lascii->buttons);
-	vector_del(_lascii->objects);
+	str_del(__lascii->abuf);
+	vector_del(__lascii->buttons);
+	vector_del(__lascii->objects);
 	/* Free the grids */
-	for (int i = 0; i < _lascii->ws.ws_row; i++) {
-		for (int j = 0; j < _lascii->ws.ws_col; j++)
-			vector_del(_lascii->objgrid[i][j]);
-		free(_lascii->objgrid[i]);
+	for (int i = 0; i < __lascii->ws.ws_row; i++) {
+		for (int j = 0; j < __lascii->ws.ws_col; j++)
+			vector_del(__lascii->objgrid[i][j]);
+		free(__lascii->objgrid[i]);
 	}
-	free(_lascii->objgrid);
-	for (int i = 0; i < _lascii->ws.ws_row; i++)
-		free(_lascii->txtgrid[i]);
-	free(_lascii->txtgrid);
+	free(__lascii->objgrid);
+	for (int i = 0; i < __lascii->ws.ws_row; i++)
+		free(__lascii->txtgrid[i]);
+	free(__lascii->txtgrid);
 
 	/* And finally... */
-	free(_lascii);
+	free(__lascii);
 	return;
 }
