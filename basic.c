@@ -105,7 +105,7 @@ char scankey(void)
 
 void scanstr(string **store, char delim)
 {
-	int scanlen = 0;
+	size_t scanlen = 0;
 	char t[4] = "\0\0\0";
 	for (;;) {
 		read(STDIN, &t, 1);
