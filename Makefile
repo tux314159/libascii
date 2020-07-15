@@ -3,7 +3,6 @@ DEBUG = -g
 OPTIM = -O3 -march=native
 CFLAGS = $(WARNINGS) $(DEBUG) $(OPTIM) -std=c99 -fPIC -o $@
 CC = gcc
-OCC = $(CC) -c
 AR = ar rcs $@
 
 # FILES
@@ -41,7 +40,7 @@ libmds/libmds.so : FORCE
 	$(MAKE) -C libmds/
 
 %.o : %.c
-	$(OCC) $(CFLAGS) $^
+	$(CC) -c $(CFLAGS) $^
 
 git : FORCE
 	git submodule init
