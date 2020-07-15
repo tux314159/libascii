@@ -8,11 +8,12 @@ AR = ar rcs $@
 
 # FILES
 BASE = globals.c init.o basic.o
+IO = io/input.o io/output.o
 WIDGETS = widgets/button.o
 GRID = grid/objgrid_init.o grid/objgrid_op.o grid/txtgrid_init.o grid/txtgrid_op.o
 OBJECTSYS = objectsys/object.o
 
-LIBFILES = $(BASE) $(WIDGETS) $(GRID) $(OBJECTSYS)
+LIBFILES = $(BASE) $(IO) $(WIDGETS) $(GRID) $(OBJECTSYS)
 
 .PHONY : all clean cleanproper git dynamic static
 
