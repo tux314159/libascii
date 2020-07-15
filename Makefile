@@ -47,13 +47,12 @@ git : FORCE
 	git submodule init
 	git submodule update --remote
 
-clean : FORCE
-	rm -rf *.o
-	rm -rf */*.o
-	$(MAKE) -C libmds/ cleanproper
-
 cleanproper : clean
 	rm -f test maze *.a *.so
 	rm -rf libmds
+
+clean : FORCE
+	find -name '*.o' -delete
+	$(MAKE) -C libmds/ cleanproper
 
 FORCE :
