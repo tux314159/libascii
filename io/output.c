@@ -38,3 +38,28 @@ void curs_mov(struct spos newpos)
 	__lascii->cpos = newpos;
 	return;
 }
+
+void clearscreen(void)
+{
+	str_append(__lascii->abuf, "\x1b[H\x1b[2J", 7);
+	return;
+}
+
+void clearline(short int linenum)
+{
+	char t[12] = "\0\0\0\0\0\0\0\0\0\0\0";
+	sprintf(t, "\x1b[%d;1H", linenum);
+	str_append(__lascii->abuf, t, strlen(t));
+	str_append(__lascii->abuf, "\x1b[K", 3);
+	return;
+}
+
+void stdin_nonblock(void)
+{
+	fcntl(STDIN, F_SETFL, fcntl(STDIN, F_GETFL, 0) | O_NONBLOCK);
+}
+
+void stdin_block(void)
+{
+	fcntl(STDIN, F_SETFL, fcntl(STDIN, F_GETFL, 0) & ~O_NONBLOCK);
+}
