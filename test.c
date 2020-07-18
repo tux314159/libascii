@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "api.h"
 
-short int o1;
 char *speeches[3] = {"Hi!", "Bye!", "No."};
 
 int main(void)
@@ -11,7 +10,6 @@ int main(void)
 
 	/* Page 1 */
 	curs_invis();
-	o1 = object_create('@', MKSPOS(5, 1));
 	curs_mov(MKSPOS(getwinrows(), 1));
 	buf_putstr("Press a key: ");
 	paintscreen();
@@ -26,7 +24,6 @@ int main(void)
 
 	clearscreen();
 	/* Page 2 */
-	object_mov(o1, MKSPOS(5, 2));
 	curs_mov(MKSPOS(getwinrows(), 1));
 	buf_putstr("Type something and press enter: ");
 	curs_mov(MKSPOS(getwinrows(), strlen("Type something and press enter: ") + 1));
@@ -45,7 +42,6 @@ int main(void)
 
 	clearscreen();
 	/* Page 3 */
-	object_mov(o1, MKSPOS(5, 3));
 	buf_putstr("Pick something to say!");
 	for (int i = 0; i < 3; i++)
 		button_create(MKSPOS((i+1)*3, 2), speeches[i], 1, 1);
@@ -59,7 +55,6 @@ get_button_choice: ;;
 	/* Exit code */
 	curs_vis();
 	paintscreen();
-	object_del(o1);
 	for (int i = 0; i < 3; i++)
 		button_del(1);
 	libascii_exit();
