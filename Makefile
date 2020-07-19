@@ -1,7 +1,7 @@
 WARNINGS = -W -Wall -Wextra -Wpedantic -pedantic -Wpointer-arith
 DEBUG = -g
 OPTIM = -O3 -march=native -mtune=native
-CFLAGS = $(WARNINGS) $(DEBUG) $(OPTIM) -std=c99 -fPIC -o $@
+CFLAGS = $(WARNINGS) $(DEBUG) $(OPTIM) -std=c99 -fsigned-char -fPIC -o $@
 CC = gcc
 AR = ar rcs $@
 
