@@ -2,26 +2,21 @@
 #    include "grid.h"
 #endif
 
-bool txt_grid_init(void)
+char** txt_grid_init(void)
 {
-	if (__lascii->txtgrid)
-		return false;
-
-	__lascii->txtgrid = malloc(__lascii->ws.ws_row * sizeof(char*));
-	for (int i = 0; i < __lascii->ws.ws_row; i++) {
-		__lascii->txtgrid[i] = calloc(__lascii->ws.ws_col, sizeof(char));
+	char **retptr = malloc(__lascii->ws.ws_row * sizeof(char*));
+	for (int i = 0; i <= __lascii->ws.ws_row; i++) {
+		retptr[i] = malloc(__lascii->ws.ws_col * sizeof(char));
+		memset(retptr[i], ' ', __lascii->ws.ws_col * sizeof(char));
+		retptr[i][__lascii->ws.ws_col] = '\0';
 	}
 
-	return true;
+	return retptr;
 }
 
-bool txt_grid_deinit(void)
+void txt_grid_deinit(void)
 {
-	if (!__lascii->txtgrid)
-		return false;
-
 	for (int i = 0; i < __lascii->ws.ws_row; i++)
 		free(__lascii->txtgrid[i]);
 	free(__lascii->txtgrid);
-	return true;
 }
