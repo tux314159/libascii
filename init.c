@@ -19,18 +19,8 @@ void libascii_init(void)
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &(__lascii->ws));
 
 	/* Grids */
-	__lascii->objgrid = malloc(__lascii->ws.ws_row * sizeof(struct vector**));
-	for (int i = 0; i < __lascii->ws.ws_row; i++) {
-		__lascii->objgrid[i] = malloc(__lascii->ws.ws_col * sizeof(struct vector*));
-		for (int j = 0; j < __lascii->ws.ws_col; j++)
-			__lascii->objgrid[i][j] = vector_create(sizeof(struct object));
-
-	}
-	__lascii->txtgrid = malloc(__lascii->ws.ws_row * sizeof(char*));
-	for (int i = 0; i < __lascii->ws.ws_row; i++) {
-		__lascii->txtgrid[i] = calloc(__lascii->ws.ws_col, sizeof(char));
-	}
-
+	__lascii->objgrid = obj_grid_init();
+	__lascii->txtgrid = txt_grid_init();
 	/* Use alternate buffer */
 	write(STDOUT, "\x1b[?1049h", 8);
 
@@ -62,16 +52,8 @@ void libascii_exit(void)
 	vector_del(__lascii->buttons);
 	vector_del(__lascii->objects);
 	/* Free the grids */
-	for (int i = 0; i < __lascii->ws.ws_row; i++) {
-		for (int j = 0; j < __lascii->ws.ws_col; j++)
-			vector_del(__lascii->objgrid[i][j]);
-		free(__lascii->objgrid[i]);
-	}
-	free(__lascii->objgrid);
-	for (int i = 0; i < __lascii->ws.ws_row; i++)
-		free(__lascii->txtgrid[i]);
-	free(__lascii->txtgrid);
-
+	obj_grid_deinit();
+	txt_grid_deinit();
 	/* And finally... */
 	free(__lascii);
 	return;
