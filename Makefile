@@ -47,8 +47,8 @@ libmds/libmds.a : FORCE
 	$V $(CC) -c $(CFLAGS) $^
 
 git : FORCE
-	$V git submodule init
-	$V git submodule update --remote
+	git submodule init
+	git submodule update --remote
 
 cleanproper : clean
 	$V echo "Deep clean..."
