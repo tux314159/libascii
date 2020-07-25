@@ -23,11 +23,11 @@ dynamic : libascii.so
 
 static : libascii.a
 
-test : test.c libascii.a libmds/libmds.a globals.c
+test : test.o libascii.a libmds/libmds.a globals.o
 	$V printf "Compiling and linking \033[1m$@\033[0m...\n"
 	$V $(CC) $(CFLAGS) $^
 
-maze : maze.c libascii.a libmds/libmds.a globals.c
+maze : maze.o libascii.a libmds/libmds.a globals.o
 	$V printf "Compiling and linking \033[1m$@\033[0m...\n"
 
 libascii.a : $(LIBFILES)
@@ -39,7 +39,8 @@ libascii.so : $(LIBFILES)
 	$V $(CC) $(CFLAGS) -shared -fPIC $^
 
 libmds/libmds.a : FORCE
-	$V $(MAKE) -s -C libmds/ libmds.a
+	$V printf "Building submodule \033[1m$@\033[0m...\n"
+	$V $(MAKE) -s -C libmds/ libmds.a >/dev/null 2>&1
 
 %.o : %.c
 	$V printf "Compiling \033[1m$@\033[0m from $^...\n"
@@ -50,11 +51,15 @@ git : FORCE
 	$V git submodule update --remote
 
 cleanproper : clean
+	$V echo "Deep clean..."
 	$V rm -f test maze *.a *.so
 	$V rm -rf libmds
+	$V echo "Sparkling clean!"
 
 clean : FORCE
+	$V echo "Cleaning..."
 	$V find -name '*.o' -delete
-	$V $(MAKE) -C libmds/ cleanproper
+	$V if [ -d libmds ]; then $(MAKE) -C libmds/ cleanproper; fi
+	$V echo "Clean!"
 
 FORCE :
