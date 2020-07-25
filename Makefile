@@ -4,6 +4,7 @@ OPTIM = -O3 -march=native -mtune=native
 CFLAGS = $(WARNINGS) $(DEBUG) $(OPTIM) -std=c99 -fsigned-char -fPIC -o $@
 CC = gcc
 AR = ar rcs $@
+V = @
 
 # FILES
 BASE = globals.c init.o basic.o
@@ -23,36 +24,37 @@ dynamic : libascii.so
 static : libascii.a
 
 test : test.c libascii.a libmds/libmds.a globals.c
-	$(CC) $(CFLAGS) $^
+	$V printf "Compiling and linking \033[1m$@\033[0m...\n"
+	$V $(CC) $(CFLAGS) $^
 
 maze : maze.c libascii.a libmds/libmds.a globals.c
-	$(CC) $(CFLAGS) $^
+	$V printf "Compiling and linking \033[1m$@\033[0m...\n"
 
 libascii.a : $(LIBFILES)
-	$(AR) $^
+	$V printf "Creating static library \033[1m$@\033[0m...\n"
+	$V $(AR) $^
 
 libascii.so : $(LIBFILES)
-	$(CC) $(CFLAGS) -shared -fPIC $^
+	$V printf "Creating shared library \033[1m$@\033[0m...\n"
+	$V $(CC) $(CFLAGS) -shared -fPIC $^
 
 libmds/libmds.a : FORCE
-	$(MAKE) -C libmds/
-
-libmds/libmds.so : FORCE
-	$(MAKE) -C libmds/
+	$V $(MAKE) -s -C libmds/ libmds.a
 
 %.o : %.c
-	$(CC) -c $(CFLAGS) $^
+	$V printf "Compiling \033[1m$@\033[0m from $^...\n"
+	$V $(CC) -c $(CFLAGS) $^
 
 git : FORCE
-	git submodule init
-	git submodule update --remote
+	$V git submodule init
+	$V git submodule update --remote
 
 cleanproper : clean
-	rm -f test maze *.a *.so
-	rm -rf libmds
+	$V rm -f test maze *.a *.so
+	$V rm -rf libmds
 
 clean : FORCE
-	find -name '*.o' -delete
-	$(MAKE) -C libmds/ cleanproper
+	$V find -name '*.o' -delete
+	$V $(MAKE) -C libmds/ cleanproper
 
 FORCE :
