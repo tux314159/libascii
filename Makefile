@@ -1,10 +1,37 @@
 WARNINGS = -W -Wall -Wextra -Wpedantic -pedantic -Wpointer-arith
 DEBUG = -g
 OPTIM = -O3 -march=native -mtune=native
-CFLAGS = $(WARNINGS) $(DEBUG) $(OPTIM) -std=c99 -fsigned-char -fPIC -o $@
+CFLAGS = -std=c99 $(WARNINGS) $(DEBUG) $(OPTIM) -fsigned-char -fPIC -o $@
 CC = gcc
 AR = ar rcs $@
 V = @
+
+WARNINGS += -Wpedantic
+WARNINGS += -Wall
+WARNINGS += -Wextra
+WARNINGS += -Waggregate-return
+WARNINGS += -Wbad-function-cast
+WARNINGS += -Wcast-align
+WARNINGS += -Wcast-qual
+WARNINGS += -Wdeclaration-after-statement
+WARNINGS += -Wfloat-equal
+WARNINGS += -Wformat=2
+WARNINGS += -Wlogical-op
+WARNINGS += -Wmissing-declarations
+WARNINGS += -Wmissing-include-dirs
+WARNINGS += -Wmissing-prototypes
+WARNINGS += -Wnested-externs
+WARNINGS += -Wpointer-arith
+WARNINGS += -Wredundant-decls
+WARNINGS += -Wsequence-point
+WARNINGS += -Wshadow
+WARNINGS += -Wstrict-prototypes
+WARNINGS += -Wswitch
+WARNINGS += -Wundef
+WARNINGS += -Wunreachable-code
+WARNINGS += -Wunused-but-set-parameter
+WARNINGS += -Wwrite-strings
+WARNINGS += -Werror
 
 # FILES
 BASE = globals.c init.o basic.o
