@@ -23,16 +23,6 @@ struct spos { /* Screen position */
 	short int c;
 };
 
-struct button {
-	short int id;
-	short int w;
-	short int h;
-	struct spos pos;
-	string *contents;
-	size_t arrlen;
-	void_fnptr action;
-};
-
 struct object {
 	short int id;
 	char rep;
@@ -50,8 +40,6 @@ struct libascii_stat {
 	struct winsize ws;
 	int echo; /* When receiving input, should I echo it on output? */
 	string *abuf;
-	struct vector *buttons;
-	short int but_idmax; /* Most recent button id */
 	short int obj_idmax; /* Most recent object id */
 	struct vector *objects;
 	struct vector ***objgrid; /* The object grid itself */

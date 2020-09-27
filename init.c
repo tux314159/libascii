@@ -9,10 +9,6 @@ void libascii_init(void)
 	__lascii->abuf = str_create();
 	__lascii->echo = 0;
 
-	/* Buttons */
-	__lascii->buttons = vector_create(sizeof(struct button));
-	__lascii->but_idmax = 0;
-
 	/* Objects */
 	__lascii->objects = vector_create(sizeof(struct object*));
 	__lascii->obj_idmax = 0;
