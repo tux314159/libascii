@@ -16,7 +16,6 @@ WARNINGS += -Wcast-qual
 WARNINGS += -Wdeclaration-after-statement
 WARNINGS += -Wfloat-equal
 WARNINGS += -Wformat=2
-WARNINGS += -Wlogical-op
 WARNINGS += -Wmissing-declarations
 WARNINGS += -Wmissing-include-dirs
 WARNINGS += -Wmissing-prototypes
@@ -29,7 +28,7 @@ WARNINGS += -Wstrict-prototypes
 WARNINGS += -Wswitch
 WARNINGS += -Wundef
 WARNINGS += -Wunreachable-code
-WARNINGS += -Wunused-but-set-parameter
+WARNINGS += -Wunused-parameter
 WARNINGS += -Wwrite-strings
 WARNINGS += -Werror
 
