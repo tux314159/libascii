@@ -9,7 +9,7 @@ char scankey(void)
 	return t[0];
 }
 
-void scanstr(string **store, char delim)
+void scanstr(string **store, const char delim)
 {
 	int scanlen = 0;
 	char t[4] = "\0\0\0";

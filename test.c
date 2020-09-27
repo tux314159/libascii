@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "api.h"
 
-char *speeches[3] = {"Hi!", "Bye!", "No."};
+const char *speeches[3] = {"Hi!", "Bye!", "No."};
 
 int main(void)
 {

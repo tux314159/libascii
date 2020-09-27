@@ -11,7 +11,7 @@ static inline bool chkspos(struct spos in)
 	return true;
 }
 
-void buf_putstr(char *str)
+void buf_putstr(const char *str)
 {
 	str_append(__lascii->abuf, str, strlen(str));
 	return;
@@ -29,7 +29,7 @@ void curs_vis(void)
 	return;
 }
 
-void curs_mov(struct spos newpos)
+void curs_mov(const struct spos newpos)
 {
 	if (chkspos(newpos) == false) return;
 	char t[16] = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
@@ -45,7 +45,7 @@ void clearscreen(void)
 	return;
 }
 
-void clearline(short int linenum)
+void clearline(const short int linenum)
 {
 	char t[12] = "\0\0\0\0\0\0\0\0\0\0\0";
 	sprintf(t, "\x1b[%d;1H", linenum);
