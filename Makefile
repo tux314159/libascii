@@ -53,6 +53,7 @@ test : test.o libascii.a libmds/libmds.a globals.o
 
 maze : maze.o libascii.a libmds/libmds.a globals.o
 	$V printf "Compiling and linking \033[1m$@\033[0m...\n"
+	$V $(CC) $(CFLAGS) $^
 
 libascii.a : $(LIBFILES)
 	$V printf "Creating static library \033[1m$@\033[0m...\n"
