@@ -14,6 +14,8 @@ static void draw_obj(void)
 
 static void draw_but(void)
 {
+	char tmp[MAX_BUTTONS];
+
 	struct button cbut;
 	for (int i = 0; i < __lascii->buttons->len; i++) {
 		cbut = vector_get(__lascii->buttons, i, struct button);
@@ -37,7 +39,6 @@ static void draw_but(void)
 		buf_putstr(cbut.contents->str);
 
 		/* And print the label */
-		char tmp[MAX_BUTTONS];
 		curs_mov(cbut.pos);
 		sprintf(tmp, "%d", cbut.id);
 		buf_putstr(tmp);

@@ -2,6 +2,8 @@
 
 void libascii_init(void)
 {
+	struct termios orig, raw;
+
 	/* Base */
 	__lascii = malloc(sizeof(struct libascii_stat));
 	__lascii->abuf = str_create();
@@ -29,7 +31,6 @@ void libascii_init(void)
 	__lascii->cpos.c = 1;
 
 	/* Turn on 'raw mode' */
-	struct termios orig, raw;
 	tcgetattr(STDIN_FILENO, &orig);
 	__lascii->init_termios = orig;
 	tcgetattr(STDIN_FILENO, &raw);

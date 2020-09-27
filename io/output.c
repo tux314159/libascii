@@ -31,8 +31,10 @@ void curs_vis(void)
 
 void curs_mov(const struct spos newpos)
 {
+	char t[16];
+	memset(t, '\0', sizeof(t) * sizeof(*t));
+
 	if (chkspos(newpos) == false) return;
-	char t[16] = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 	sprintf(t, "\x1b[%d;%dH", newpos.r, newpos.c);
 	buf_putstr(t);
 	__lascii->cpos = newpos;

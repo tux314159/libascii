@@ -5,6 +5,9 @@ const char *speeches[3] = {"Hi!", "Bye!", "No."};
 
 int main(void)
 {
+	char rec;
+	string* t;
+
 	libascii_init();
 	setecho();
 
@@ -13,7 +16,7 @@ int main(void)
 	curs_mov(MKSPOS(getwinrows(), 1));
 	buf_putstr("Press a key: ");
 	paintscreen();
-	char rec = scankey();
+	rec = scankey();
 	clearline(getwinrows());
 	curs_mov(MKSPOS(1, 1));
 	buf_putstr("You pressed '");
@@ -29,7 +32,7 @@ int main(void)
 	curs_mov(MKSPOS(getwinrows(), strlen("Type something and press enter: ") + 1));
 	curs_vis();
 	paintscreen();
-	string *t = str_create();
+	t = str_create();
 	scanstr(&t, NEWLINE);
 	clearline(getwinrows());
 	curs_mov(MKSPOS(1, 1));
@@ -41,22 +44,10 @@ int main(void)
 	scankey();
 
 	clearscreen();
-	/* Page 3 */
-	buf_putstr("Pick something to say!");
-	for (int i = 0; i < 3; i++)
-		button_create(MKSPOS((i+1)*3, 2), speeches[i], 1, 1);
-
-	paintscreen();
-get_button_choice: ;;
-	char choice = scankey();
-	if (choice < '1' || choice > '3')
-		goto get_button_choice;
 
 	/* Exit code */
 	curs_vis();
 	paintscreen();
-	for (int i = 0; i < 3; i++)
-		button_del(1);
 	libascii_exit();
 	str_del(t);
 	return 0;

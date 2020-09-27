@@ -9,24 +9,34 @@
 
 int main(int argc, char **argv)
 {
-	char scan = '\0';
-	short int curr, curc;
-	char *wall_chars = NULL;
-	size_t wall_chars_n = 0;
+	FILE *mapfile;
+	char *wall_chars;
 	char goal;
+	char msgaux[70];
+	char scan;
+	int won;
+	short int curr, curc;
+	size_t wall_chars_n;
+	time_t starttime;
 
 	if (argc != 2) {
 		fprintf(stderr, "Usage: %s <mapfile>\n", argv[0]);
 		exit(1);
 	}
-	FILE *mapfile = fopen(argv[1], "r");
+	mapfile = fopen(argv[1], "r");
 	perror("Opening map file");
 	if (errno != 0)
 		exit(2);
 
 	libascii_init();
 	/* Read the map */
+
 	{
+		char t;
+		int r, c;
+		wall_chars = NULL;
+		wall_chars_n = 0;
+
 		getline(&wall_chars, &wall_chars_n, mapfile);
 		wall_chars[strlen(wall_chars)-1] = '\0'; /* strip newline */
 		goal = fgetc(mapfile);
@@ -34,8 +44,9 @@ int main(int argc, char **argv)
 		fscanf(mapfile, "%hd%hd", &curr, &curc);
 		fgetc(mapfile); /* skip the next newline */
 
-		char t = '\0';
-		int r = 0, c = 0;
+		r = 0;
+		c = 0;
+		t = '\0';
 		while ((t = fgetc(mapfile)) != EOF) {
 			if (t == '\n') {
 				r++;
@@ -49,8 +60,6 @@ int main(int argc, char **argv)
 	}
 
 	object_create('@', MKSPOS(curr, curc));
-	time_t starttime = time(NULL);
-	int won = 0;
 
 	for (int i = 1; i <= getwinrows(); i++) {
 		for (int j = 1; j <= getwincols(); j++) {
@@ -60,6 +69,10 @@ int main(int argc, char **argv)
 	}
 	curs_mov(MKSPOS(curr, curc));
 	paintscreen();
+
+	won = 0;
+	starttime = time(NULL);
+	scan = '\0';
 
 	while (scan != 'q') {
 		scan = scankey();
@@ -101,7 +114,6 @@ int main(int argc, char **argv)
 		curs_mov(MKSPOS(getwinrows()/2, getwincols()/2 - 5));
 		buf_putstr("You WIN! Yay!");
 		curs_mov(MKSPOS(getwinrows()/2 + 1, getwincols()/2 - 25));
-		char msgaux[70];
 		sprintf(msgaux, "But you took %ld seconds... Can you do better?", time(NULL) - starttime);
 		buf_putstr(msgaux);
 		strcpy(msgaux, "(Press any key to exit)");
