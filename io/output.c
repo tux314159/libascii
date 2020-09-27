@@ -35,7 +35,7 @@ void curs_mov(const struct spos newpos)
 	memset(t, '\0', sizeof(t) * sizeof(*t));
 
 	if (chkspos(newpos) == false) return;
-	sprintf(t, "\x1b[%d;%dH", newpos.r, newpos.c);
+	sprintf(t, "\x1b[%hd;%hdH", newpos.r, newpos.c);
 	buf_putstr(t);
 	__lascii->cpos = newpos;
 	return;
