@@ -1,11 +1,3 @@
-WARNINGS = -W -Wall -Wextra -Wpedantic -pedantic -Wpointer-arith
-DEBUG = -g
-OPTIM = -O3 -march=native -mtune=native
-CFLAGS = -std=c99 $(WARNINGS) $(DEBUG) $(OPTIM) -fsigned-char -fPIC -o $@
-CC = gcc
-AR = ar rcs $@
-V = @
-
 WARNINGS += -Wpedantic
 WARNINGS += -Wall
 WARNINGS += -Wextra
@@ -31,6 +23,13 @@ WARNINGS += -Wunreachable-code
 WARNINGS += -Wunused-parameter
 WARNINGS += -Wwrite-strings
 WARNINGS += -Werror
+
+DEBUG = -g
+OPTIM = -O3 -march=native -mtune=native
+CFLAGS = -std=c99 $(WARNINGS) $(DEBUG) $(OPTIM) -fsigned-char -fPIC -o $@
+CC = gcc
+AR = ar rcs $@
+V = @
 
 # FILES
 BASE = globals.c init.o basic.o
