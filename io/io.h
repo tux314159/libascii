@@ -12,4 +12,4 @@ void stdin_nonblock(void);
 void stdin_block(void);
 
 char scankey(void);
-void scanstr(string **store, const char delim);
+void scanstr(struct string *store, const char delim);
