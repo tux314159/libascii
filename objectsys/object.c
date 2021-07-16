@@ -2,8 +2,8 @@
 
 short int object_create(char rep, struct spos pos)
 {
-	struct object obj = {++__lascii->obj_idmax, rep, pos};
-	vector_pushback(__lascii->objects, obj_grid_cell_add(obj, pos), struct object*);
+	const struct object obj = {++__lascii->obj_idmax, rep, pos};
+	obj_grid_cell_add(obj, pos);
 	return __lascii->obj_idmax;
 }
 

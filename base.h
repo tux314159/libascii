@@ -11,7 +11,9 @@
 #ifndef INC_MACROS
 #    include "macros.h"
 #endif
-#include "libmds/libmds.h"
+
+#include "libmds-ng/vector/vector.h"
+#include "libmds-ng/string/string.h"
 
 /* Macros and typedefs */
 #define MAX_BUTTONS 50
@@ -39,7 +41,7 @@ struct libascii_stat {
 	struct termios init_termios;
 	struct winsize ws;
 	int echo; /* When receiving input, should I echo it on output? */
-	string *abuf;
+	struct string *abuf;
 	short int obj_idmax; /* Most recent object id */
 	struct vector *objects;
 	struct vector ***objgrid; /* The object grid itself */

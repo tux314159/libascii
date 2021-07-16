@@ -6,7 +6,7 @@ const char *speeches[3] = {"Hi!", "Bye!", "No."};
 int main(void)
 {
 	char rec;
-	string* t;
+	struct string t;
 
 	libascii_init();
 	setecho();
@@ -32,13 +32,13 @@ int main(void)
 	curs_mov(MKSPOS(getwinrows(), strlen("Type something and press enter: ") + 1));
 	curs_vis();
 	paintscreen();
-	t = str_create();
+	string_init(&t);
 	scanstr(&t, NEWLINE);
 	clearline(getwinrows());
 	curs_mov(MKSPOS(1, 1));
 	curs_invis();
 	buf_putstr("You typed '");
-	buf_putstr(t->str);
+	buf_putstr(t.str);
 	buf_putstr("' (Press any key to continue)");
 	paintscreen();
 	scankey();
@@ -49,6 +49,6 @@ int main(void)
 	curs_vis();
 	paintscreen();
 	libascii_exit();
-	str_del(t);
+	string_deinit(&t);
 	return 0;
 }

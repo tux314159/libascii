@@ -9,7 +9,8 @@ char scankey(void)
 	return t[0];
 }
 
-void scanstr(string **store, const char delim)
+/* TODO: Overhaul for this shit */
+void scanstr(struct string *store, const char delim)
 {
 	int scanlen = 0;
 	char t[4] = "\0\0\0";
@@ -39,9 +40,11 @@ void scanstr(string **store, const char delim)
 					t[2] = '\0';
 				}
 			}
+
 			if (__lascii->echo)
 				write(STDOUT, t, 3);
-			str_append(*store, t, 3);
+
+			string_append(store, t);
 		}
 	}
 	curs_mov(__lascii->cpos);

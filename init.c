@@ -6,11 +6,11 @@ void libascii_init(void)
 
 	/* Base */
 	__lascii = malloc(sizeof(struct libascii_stat));
-	__lascii->abuf = str_create();
+	string_init(__lascii->abuf);
 	__lascii->echo = 0;
 
 	/* Objects */
-	__lascii->objects = vector_create(sizeof(struct object*));
+	vector_init(__lascii->objects, sizeof(struct object*));
 	__lascii->obj_idmax = 0;
 
 	/* Get window size */
@@ -45,9 +45,8 @@ void libascii_exit(void)
 	/* Restore 'cooked' mode */
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &(__lascii->init_termios));
 	/* Free memory */
-	str_del(__lascii->abuf);
-	vector_del(__lascii->buttons);
-	vector_del(__lascii->objects);
+	string_deinit(__lascii->abuf);
+	vector_deinit(__lascii->objects);
 	/* Free the grids */
 	obj_grid_deinit();
 	txt_grid_deinit();
